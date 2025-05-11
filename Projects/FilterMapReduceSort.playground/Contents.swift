@@ -93,9 +93,10 @@ class Department: Hashable, Identifiable, Equatable {
     let company: Company?
     let employees: [Employee]?
     
-    init(id: Int, name: String, employees: [Employee]?) {
+    init(id: Int, name: String, company: Company?, employees: [Employee]?) {
         self.id = id
         self.name = name
+        self.company = company
         self.employees = employees
     }
     
@@ -167,7 +168,7 @@ let company = Company(id: 1, name: "Acme Inc", departments: [])
 /// Create departments
 let departments = [
     Department(id: 1, name: "Sales", company: company, employees: []),
-    Department(id: 2, name: "Engineering", company: company, employees: []),
+    Department(id: 2, name: "Engineering", company: company,employees: []),
     Department(id: 3, name: "Human Resources", company: company, employees: []),
 ]
 
