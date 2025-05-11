@@ -8,51 +8,10 @@
 
  -> See: MockData.md
 
- ### Company
-
- | ID | Name   |
- | ------------- | --------------- |
- | C001  | Acme Inc. |
-
- ### Departments
-
- | Department ID | Name            | Company   |
- | ------------- | --------------- | --------- |
- | D001          | Sales           | Acme Inc. |
- | D002          | Engineering     | Acme Inc. |
- | D003          | Human Resources | Acme Inc. |
-
- ### Employees
-
- | Employee ID | Name         | Role              | Department      |
- | ----------- | ------------ | ----------------- | --------------- |
- | E001        | Alice Martin | Sales Manager     | Sales           |
- | E002        | Bob Sanchez  | Software Engineer | Engineering     |
- | E003        | Carol White  | HR Coordinator    | Human Resources |
- | E004        | David Chen   | QA Engineer       | Engineering     |
- | E005        | Eve Summers  | Account Executive | Sales           |
-
- ### Sales
-
- | Sale ID | Amount | Date       | Employee     |
- | ------- | ------ | ---------- | ------------ |
- | S001    | 15,000 | 2024-12-01 | Alice Martin |
- | S002    | 9,500  | 2025-01-15 | Eve Summers  |
- | S003    | 12,000 | 2025-02-01 | Alice Martin |
- | S004    | 7,500  | 2025-03-10 | Eve Summers  |
- | S005    | 5,000  | 2025-04-05 | Alice Martin |
- 
- ### Relationships:
-
- - A `Company` has many `Departments`
- - A `Department` has many `Employees`
- - An `Employee` has many `Sales`
-
- `Company` → `Department` → `Employee` → `Sale`
-
  ### Features
 
  - Show me:
+    - [F00] Company structure output
     - [F01] All employees grouped by department
     - [F02] Total sales per employee
     - [F03] The top salesperson per department
@@ -204,7 +163,9 @@ let sales = [
     Sale(id: 5, amount: Double(5000), date: "2025-04-05" , employee: employeeByName["Alice Martin"]), // Alice Martin
 ]
 
-// Tie everything up
+// ---
+
+// MARK: Tie relationships
 
 /// Link employees back to their departments
 for employee in employees {
@@ -216,7 +177,68 @@ for sale in sales {
     sale.employee?.sales.append(sale)
 }
 
-printCompanyStructure(company: company)
+
+// ---
+
+// MARK: Features:
+
+/*
+- [F00] Company structure output
+- [F01] All employees grouped by department
+- [F02] Total sales per employee
+- [F03] The top salesperson per department
+- [F04] Employees with no sales
+- [F05] Departments with the most employees
+- [F06] Top 3 sales by amount (across all employees)
+- [F07] Sales Leaderboard
+*/
+
+// - [F00] Company structure output
+print ("# [F00] - Company structure\n")
+printCompanyStructure(for: company)
+
+print ("\n--------------------\n")
+
+// - [F01] All employees grouped by department
+print ("# [F01] - All employees grouped by department \n")
+showAllEmployeesGroupedByDepartment(in: company)
+
+print ("\n--------------------\n")
+
+// - [F02] Total sales per employee
+print ("# [F02] Total sales per employee \n")
+showTotalSalesPerEmployee(in: company)
+
+print ("\n--------------------\n")
+
+// - [F03] The top salesperson per department
+print ("# [F03] The top salesperson per department \n")
+showTopSalesPersonPerDepartment(in: company)
+    
+print ("\n--------------------\n")
+
+
+// - [F04] Employees with no sales
+print ("# [F04] Employees with no sales \n")
+
+print ("\n--------------------\n")
+
+// - [F05] Departments with the most employees
+print ("# [F05] Departments with the most employees \n")
+
+print ("\n--------------------\n")
+
+
+// - [F06] Top 3 sales by amount (across all employees)
+print ("# [F06] Top 3 sales by amount (across all employees) \n")
+
+print ("\n--------------------\n")
+
+
+// - [F07] Sales Leaderboard
+print ("# [F07] Sales Leaderboard \n")
+print ("\n--------------------\n")
+
 
 // MARK: Exit playground
 
@@ -227,27 +249,114 @@ PlaygroundPage.current.finishExecution()
 
 // MARK: Features
 
-/// [F01] Find: All employees grouped by department
-func findAllEmployeesGroupedByDepartment() {
+/// [F00] Company structure output
+
+func printCompanyStructure(for company: Company) {
+    print("# Company: \(company.name)\n---------------")
     
+    if company.departments.isEmpty {
+        print("No departments found")
+        return
+    }
+    
+    for dept in company.departments {
+        print("  > Dept: \(dept.name)\n---------------")
+        
+        
+        if dept.employees.isEmpty {
+            print("    > No employees found for this department")
+            continue
+        }
+        
+        for emp in dept.employees {
+            print("    > Employee: \(emp.name)")
+            
+            if emp.sales.isEmpty {
+                print("      > No sales for this employee")
+            } else {
+                for sale in emp.sales {
+                    print("      > Sale: $\(sale.amount)")
+                }
+            }
+        }
+    }
 }
 
-/// [F02] Find: Total sales per employee
-func findTotalSalesPerEmployee() {}
+/// - [F01] All employees grouped by department
+func showAllEmployeesGroupedByDepartment(in company: Company) {
+    if (company.departments.isEmpty) {
+        print ("[X] No departments found")
+        return
+    }
+       
+    company.departments
+        .filter {
+            !$0.employees.isEmpty
+        }
+        .forEach { dept in
+            print("📁 \(dept.name):")
+            dept.employees
+                .map { "  👤 \($0.name) – \($0.role)" }
+                .forEach { print ($0) }
+        }
+}
 
-/// [F03] The top salesperson per department
-func findTopSalesPersonPerDepartment() {}
+// - [F02] Total sales per employee
+func showTotalSalesPerEmployee(in company: Company) {
+    if (company.employees.isEmpty) {
+        print ("[X] No employees found")
+        return
+    }
 
-/// [F04] Employees with no sales
-func findAllEmployeesWithNoSales() {}
+    let allEmployees = company.departments.flatMap { $0.employees }
+    allEmployees.forEach { emp in
+        let total = emp.sales.reduce(0.0) { $0 + $1.amount }
+        print("👤 \(emp.name): $\(total)")
+    }
+}
 
-/// [F05] Departments with the most employees
+// - [F03] The top salesperson per department
+func showTopSalesPersonPerDepartment(in company: Company) {
+    if (company.departments.isEmpty) {
+        print ("[X] No departments found")
+        return
+    }
+    
+    /// Loop through each department in the company
+    for dept in company.departments {
+        let employees = dept.employees
+        guard !employees.isEmpty else {
+            print("📁 \(dept.name) has no employees")
+            continue
+        }
+        
+        /// Finds the maximum element in the employees array
+        /// Compare 2 employees in the department
+        /// For each, sum up their total sales, and use a comparison to sort higher total sales
+        /// May be nil
+        let top = employees.max(by: {a, b in
+            a.sales.reduce(0.0, { $0 + $1.amount } ) <
+                b.sales.reduce(0.0, {$0 + $1.amount})
+        } )
+        
+        if let top = top {
+            let total = top.sales.reduce(0.0) { $0 + $1.amount }
+            print (" `\(dept.name)` top seller is \(top.name) - $\(total)\n" )
+        }
+        
+    }
+}
+
+// - [F04] Employees with no sales
+func showAllEmployeesWithNoSales() {}
+
+// - [F05] Departments with the most employees
 func findDepartmentsWithMostEmployees() {}
 
-/// [F06] Top 3 sales by amount (across all employees)
+// - [F06] Top 3 sales by amount (across all employees)
 func findTop3SalesByAmount() {}
 
-/// [F07] Sales Leaderboard
+// - [F07] Sales Leaderboard
 func showSalesLeaderboard() {}
 
 // ---
@@ -282,41 +391,37 @@ func addSale(to: Employee) {
     
 }
 
-func printCompanyStructure(company: Company) {
-    print("# Company: \(company.name)\n---------------")
-    
-    if company.departments.isEmpty {
-        print("No departments found")
-        return
-    }
-    
-    for dept in company.departments {
-        print("  > Dept: \(dept.name)\n---------------")
-        
-        
-        if dept.employees.isEmpty {
-            print("    > No employees found for this department")
-            continue
-        }
-        
-        for emp in dept.employees {
-            print("    > Employee: \(emp.name)")
-            
-            if emp.sales.isEmpty {
-                print("      > No sales for this employee")
-            } else {
-                for sale in emp.sales {
-                    print("      > Sale: $\(sale.amount)")
-                }
-            }
-        }
-    }
-}
-
-
 func dateFormatter() -> DateFormatter {
     /// Date format helper
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
     return formatter
 }
+
+struct NumberFormatCache {
+    static let currencyRateFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 0
+        formatter.allowsFloats = false
+        formatter.roundingMode = .ceiling
+        formatter.alwaysShowsDecimalSeparator = false
+        return formatter
+    }()
+}
+
+/*
+func numberFormatter(amount: Int, locale: String = "en_US") -> NumberFormatter {
+    let formatter = NumberFormatter()
+    formatter.locale = Locale(identifier: locale)
+    formatter.numberStyle = .currency
+    formatter.minimumFractionDigits = 0
+    formatter.maximumFractionDigits = 0
+    formatter.allowsFloats = false
+    formatter.roundingMode = .ceiling
+    formatter.alwaysShowsDecimalSeparator = false
+    return formatter
+}
+*/
