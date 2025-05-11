@@ -31,6 +31,20 @@ A standalone Swift playground project to demonstrate:
 
 -> See: MockData.md
 
+### Company
+
+ | ID | Name   |
+ | ------------- | --------------- |
+ | C001  | Acme Inc. |
+
+### Departments
+
+| Department ID | Name            | Company   |
+| ------------- | --------------- | --------- |
+| D001          | Sales           | Acme Inc. |
+| D002          | Engineering     | Acme Inc. |
+| D003          | Human Resources | Acme Inc. |
+
 ### Employees
 
 | Employee ID | Name         | Role              | Department      |
@@ -40,14 +54,6 @@ A standalone Swift playground project to demonstrate:
 | E003        | Carol White  | HR Coordinator    | Human Resources |
 | E004        | David Chen   | QA Engineer       | Engineering     |
 | E005        | Eve Summers  | Account Executive | Sales           |
-
-### Departments
-
-| Department ID | Name            | Company   |
-| ------------- | --------------- | --------- |
-| D001          | Sales           | Acme Inc. |
-| D002          | Engineering     | Acme Inc. |
-| D003          | Human Resources | Acme Inc. |
 
 ### Sales
 
