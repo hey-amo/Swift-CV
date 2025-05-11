@@ -83,28 +83,31 @@ import PlaygroundSupport
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
-/// Set up NSPersistentContainer with an in-memory store,
-/// which automatically resets each time the Playground runs.
-let model = createCoreDataModels()
-let container = NSPersistentContainer(name: "Model", managedObjectModel: model)
-
-let storeDescription = NSPersistentStoreDescription()
-storeDescription.type = NSInMemoryStoreType  // In-memory store
-container.persistentStoreDescriptions = [storeDescription]
-
-container.loadPersistentStores { (_, error) in
-    if let error = error {
-        fatalError("❌ Failed to load store: \(error)")
-    }
-}
-
-let context = container.viewContext
-
-/// Create company data
-createCompanyData(context: context)
-
 
 // ---
+
+// MARK: In-memory container
+
+/// Set up NSPersistentContainer with an in-memory store,
+/// which automatically resets each time the Playground runs.
+func makeInMemoryContainer(model: NSManagedObjectModel) -> NSPersistentContainer {
+    let container = NSPersistentContainer(name: "Model", managedObjectModel: model)
+
+    let storeDescription = NSPersistentStoreDescription()
+    storeDescription.type = NSInMemoryStoreType  // Use in-memory store
+    container.persistentStoreDescriptions = [storeDescription]
+
+    container.loadPersistentStores { (desc, error) in
+        if let error = error {
+            fatalError("[X] Failed to load in-memory store: \(error)")
+        } else {
+            print("[OK] In-memory store loaded successfully.")
+        }
+    }
+
+    return container
+}
+
 
 // MARK: Create the basic core data models
 
@@ -257,7 +260,7 @@ func createCompanyData(context: NSManagedObjectContext) {
     /// Save
     do {
         try context.save()
-        print("[✅] Data inserted.")
+        print("[OK] Data inserted.")
     } catch {
         print("[X] Save failed -- \(error)")
     }
