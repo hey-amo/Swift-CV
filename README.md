@@ -16,14 +16,14 @@ A curated set of Swift Playground projects demonstrating iOS development skills 
 
 ## 📁 Portfolio
 
-Quick summary:
-- Concurrency (GCD + async/await)  *To be done*
-- Core Data modeling and queries *To be done*
-- SwiftUI with MVVM *To be done*
-- Combine Basics *To be done*
-- Unit testing with mocks and protocols *To be done*
-- Protocols *To be done*
+- Concurrency (GCD + async/await) - *To be done*
+- Core Data modeling and queries - *To be done*
+- SwiftUI with MVVM - *To be done*
+- Combine Basics - *To be done*
+- Unit testing with mocks and protocols - *To be done*
+- Protocols - *To be done*
 
+<!--
 | Project | Skills | Description |
 |------------------|------------------------|----------------|
 | `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
@@ -33,3 +33,4 @@ Quick summary:
 | `MVVMMock.playground` | SwiftUI, MVVM, Dependency Injection | Mini demo with testable ViewModels and MVVM separation of concerns using SwiftUI. |
 | `UnitTestingSwift.playground` | XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols. |
 | `Protocols.playground` | Protocols |Examples of basic and advanced protocol programming.|
+-->
