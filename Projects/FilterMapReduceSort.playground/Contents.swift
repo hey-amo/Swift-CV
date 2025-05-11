@@ -70,9 +70,9 @@ import PlaygroundSupport
 class Company: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
-    let departments: [Department]?
+    var departments: [Department]
     
-    init(id: Int, name: String, departments: [Department]?) {
+    init(id: Int, name: String, departments: [Department] = []) {
         self.id = id
         self.name = name
         self.departments = departments
@@ -90,10 +90,10 @@ class Company: Hashable, Identifiable, Equatable {
 class Department: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
-    let company: Company?
-    let employees: [Employee]?
+    weak var company: Company?
+    var employees: [Employee]
     
-    init(id: Int, name: String, company: Company?, employees: [Employee]?) {
+    init(id: Int, name: String, company: Company, employees: [Employee] = []) {
         self.id = id
         self.name = name
         self.company = company
@@ -113,10 +113,10 @@ class Employee: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
     let role: String
-    let department: Department?
-    let sales: [Sale]?
+    weak var department: Department?
+    var sales: [Sale]
     
-    init(id: Int, name: String, role: String, department: Department?, sales: [Sale]?) {
+    init(id: Int, name: String, role: String, department: Department?, sales: [Sale] = []) {
         self.id = id
         self.name = name
         self.role = role
@@ -137,7 +137,7 @@ class Sale: Hashable, Identifiable, Equatable {
     let id: Int
     let amount: Double
     let date: String
-    let employee: Employee?
+    weak var employee: Employee?
     
     init(id: Int, amount: Double, date: String, employee: Employee?) {
         self.id = id
@@ -249,39 +249,33 @@ func addSale(to: Employee) {
     
 }
 
-func printCompanyStucture(company: Company) {
-    print("# Company: \(company.name)")
-    print ("\n ----------- ")
+func printCompanyStructure(company: Company) {
+    print("# Company: \(company.name)\n-----------")
     
-    if let departments = company.departments {
+    if company.departments.isEmpty {
+        print("No departments found")
+        return
+    }
+    
+    for dept in company.departments {
+        print("  > Dept: \(dept.name)")
         
-        for dept in departments {
-            print("  > Dept: \(dept.name)")
+        if dept.employees.isEmpty {
+            print("    > No employees found for this department")
+            continue
+        }
+        
+        for emp in dept.employees {
+            print("    > Employee: \(emp.name)")
             
-            if let departmentEmployees = dept.employees {
-                
-                for emp in departmentEmployees {
-                    print("    > Employee: \(emp.name)")
-                    
-                    if let employeeSales = emp.sales {
-                        
-                        for sale in employeeSales {
-                            print("      > Sale: $\(sale.amount)")
-                        }
-                        
-                    } else {
-                        print("      > No sales for this employee")
-                    }
+            if emp.sales.isEmpty {
+                print("      > No sales for this employee")
+            } else {
+                for sale in emp.sales {
+                    print("      > Sale: $\(sale.amount)")
                 }
-                
-            }
-            else {
-                print("    > No employees found for this department")
             }
         }
-    }
-    else {
-        print ("No departments found")
     }
 }
 
