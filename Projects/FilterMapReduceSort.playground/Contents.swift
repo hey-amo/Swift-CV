@@ -226,18 +226,21 @@ print ("\n--------------------\n")
 
 // - [F05] Departments with the most employees
 print ("# [F05] Departments with the most employees \n")
+showAllDepartmentsWithMostEmployees(in: company)
 
 print ("\n--------------------\n")
 
 
 // - [F06] Top 3 sales by amount (across all employees)
 print ("# [F06] Top 3 sales by amount (across all employees) \n")
+showTop3SalesByAmount(in: company)
 
 print ("\n--------------------\n")
 
-
 // - [F07] Sales Leaderboard
 print ("# [F07] Sales Leaderboard \n")
+showSalesLeaderboard(for: company)
+
 print ("\n--------------------\n")
 
 
@@ -245,6 +248,9 @@ print ("\n--------------------\n")
 
 print("\n\n-- Exiting Playground -- ")
 PlaygroundPage.current.finishExecution()
+
+
+
 
 // ---
 
@@ -369,13 +375,21 @@ func showAllEmployeesWithNoSales(in company: Company) {
 }
 
 // - [F05] Departments with the most employees
-func findDepartmentsWithMostEmployees(in company: Company) {
+func showAllDepartmentsWithMostEmployees(in company: Company) {
     let _ = company.departments.flatMap { return $0.employees }
     
+    /// Find and display departments sorted by how many employees they have, descending.
+    let sortedResults = company.departments.sorted {
+        return $0.employees.count > $1.employees.count
+    }
+    
+    sortedResults.forEach { result in
+        print ( "\(result.name) has \(result.employees.count) employees \n" )
+    }
 }
 
 // - [F06] Top 3 sales by amount (across all employees)
-func findTop3SalesByAmount(in company: Company) {
+func showTop3SalesByAmount(in company: Company) {
     
 }
 
