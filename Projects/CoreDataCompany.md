@@ -8,12 +8,14 @@ A standalone Swift playground project to demonstrate:
 - CRUD operations
 - Search/filtering (with NSPredicate)
 
+--
+
 ## Entities
 
-- `Company` - Relationship: departments (1-to-many)
-- `Department`- Relationship: company (many-to-1), employees (1-to-many)
-- `Employee`- Relationship: department (many-to-1), sales (1-to-many)
-- `Sale` - Relationship: employee (many-to-1)
+ - `Company` - Attributes: {name: (String)}. Relationship: departments (1-to-many)
+ - `Department`- Attributes: {name: (String)}. Relationship: company (many-to-1), employees (1-to-many)
+ - `Employee`- Attributes: {name: (String), role: (String)}. Relationship: department (many-to-1), sales (1-to-many)
+ - `Sale` - Attributes: {amount: (Double), date: Date}. Relationship: employee (many-to-1)
 
 ### Relationships:
 
