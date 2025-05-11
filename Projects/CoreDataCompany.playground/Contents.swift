@@ -3,7 +3,7 @@
 
  A standalone Swift playground project to demonstrate:
 
- - Core data
+ - Basic Core data functionality
  - Entity modeling with multiple relationships
  - One-to-many and one-to-many-through patterns
  - CRUD operations
@@ -58,6 +58,23 @@
  | S004    | 7,500  | 2025-03-10 | Eve Summers  |
  | S005    | 5,000  | 2025-04-05 | Alice Martin |
 
+ ### Features
+ 
+ - Show me:
+    - [F01] All employees grouped by department
+    - [F02] Total sales per employee
+    - [F03] The top salesperson per department
+    - [F04] Employees with no sales
+    - [F05] Departments with the most employees
+    - [F06] Top 3 sales by amount (across all employees)
+
+ - CRUD:
+    - [F07] Add 1 new employee to an existing department
+    - [F08] Add 1 new department `Marketing`
+    - [F09] Move 1 employee to `Marketing`
+    - [F10] Delete 1 employee from `Sales`
+    - [F11] Delete all employees in `Human Resources`
+    - [F12] Find employee matching a name
 */
 
 import Foundation
@@ -65,6 +82,27 @@ import CoreData
 import PlaygroundSupport
 
 PlaygroundPage.current.needsIndefiniteExecution = true
+
+/// Set up NSPersistentContainer with an in-memory store,
+/// which automatically resets each time the Playground runs.
+let model = createCoreDataModels()
+let container = NSPersistentContainer(name: "Model", managedObjectModel: model)
+
+let storeDescription = NSPersistentStoreDescription()
+storeDescription.type = NSInMemoryStoreType  // In-memory store
+container.persistentStoreDescriptions = [storeDescription]
+
+container.loadPersistentStores { (_, error) in
+    if let error = error {
+        fatalError("❌ Failed to load store: \(error)")
+    }
+}
+
+let context = container.viewContext
+
+/// Create company data
+createCompanyData(context: context)
+
 
 // ---
 
@@ -99,7 +137,6 @@ func createCoreDataModels() -> NSManagedObjectModel {
         NSAttributeDescription.make(name: "name", type: .stringAttributeType),
         NSAttributeDescription.make(name: "role", type: .stringAttributeType)
     ]
-    
     
     /// Sale entity
     let sale = NSEntityDescription()
@@ -220,10 +257,65 @@ func createCompanyData(context: NSManagedObjectContext) {
     /// Save
     do {
         try context.save()
-        print("✅ All data inserted.")
+        print("[✅] Data inserted.")
     } catch {
-        print("❌ Save failed -- \(error)")
+        print("[X] Save failed -- \(error)")
     }
+}
+
+// MARK: [Features]
+
+// MARK: [F01] - All employees grouped by department
+
+func showAllEmployeesByDepartment(context: NSManagedObjectContext) {
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Department")
+
+    do {
+        /// Fetch departments
+        let departments = try context.fetch(fetchRequest)
+        for dept in departments {
+            let deptName = dept.value(forKey: "name") as? String ?? "Unknown"
+            print ("Department: \(deptName)")
+            
+            /// List matched employees for department
+            
+//            ///
+//            if let employees = dept.value(forKey: "employees") as? Set<NSManagedObject>, !employees.isEmpty {
+//                           for emp in employees {
+//                               let name = emp.value(forKey: "name") as? String ?? "(Unnamed)"
+//                               let role = emp.value(forKey: "role") as? String ?? "(Unknown Role)"
+//                               print("   👤 \(name) – \(role)")
+//                           }
+//                       } else {
+//                           print("[No employees]")
+//                       }
+        }
+        
+    } catch {
+        print ("[Error] - Could not fetch departments: \(error)")
+    }
+    
+    
+    /**
+    do {
+           let departments = try context.fetch(fetchRequest)
+           for dept in departments {
+               let deptName = dept.value(forKey: "name") as? String ?? "(Unknown Dept)"
+               print("📁 Department: \(deptName)")
+               
+               if let employees = dept.value(forKey: "employees") as? Set<NSManagedObject>, !employees.isEmpty {
+                   for emp in employees {
+                       let name = emp.value(forKey: "name") as? String ?? "(Unnamed)"
+                       let role = emp.value(forKey: "role") as? String ?? "(Unknown Role)"
+                       print("   👤 \(name) – \(role)")
+                   }
+               } else {
+                   print("   ⚠️ No employees")
+               }
+           }
+       } catch {
+           print("❌ Failed to fetch departments: \(error)")
+       }**/
 }
 
 // MARK: - Attribute/Relationship Helpers
