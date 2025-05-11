@@ -14,12 +14,7 @@ This contains a collection of Swift playgrounds aims to demonstrate my capabilit
 - Some samples may seem rudimentary to outside observers
 - Projects are designed for demonstration, not production
 
-## Quick overview
-
-- `Core-data-example`: Perform CRUD and search operations with Core data.
-- `Modify with enums`: Modify a struct using enums
-
-# 📁 Portfolio Projects in detail
+## 📁 Portfolio
 
 This file outlines each Swift playground project included in this repository, categorized by core development skills relevant to iOS roles.
 
