@@ -17,11 +17,15 @@ A curated set of Swift Playground projects demonstrating iOS development skills 
 ## 📁 Portfolio
 
 - Basic Core Data modeling and queries - *In progress*
-- ~~Concurrency (GCD + async/await)~~ - *To be done*
+- ~~Swift concurrency models (GCD + async/await)~~ - *To be done*
 - ~~SwiftUI with MVVM~~ - *To be done*
 - ~~Combine Basics~~ - *To be done*
-- ~~Unit testing with mocks and protocols - *To be done~~*
+- ~~Unit testing with mocks and protocols~~ - *To be done*
 - ~~Protocols~~ - *To be done*
+- ~~REST with mock data~~ - *To be done*
+- ~~UIKit, Foundation~~ - *To be done*
+- ~~SOLID principles~~ - *To be done*
+- ~~TCA, and reactive programming~~ *To be done*
 
 <!--
 | Project | Skills | Description |
