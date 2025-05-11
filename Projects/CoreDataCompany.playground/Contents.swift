@@ -147,6 +147,85 @@ func createCoreDataModels() -> NSManagedObjectModel {
     return model
 }
 
+/// Create company data from the mock data tables
+/// Insert Company: One record: Acme Inc.
+/// Insert Departments: 3 total (Sales, Engineering, Human Resources)
+/// Insert Employees: 5 employees, each linked to a department
+/// Insert Sales: 5 sales, only for Sales department employees
+func createCompanyData(context: NSManagedObjectContext) {
+    
+    /// Company
+    let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+    company.setValue("Acme Inc.", forKey: "name")
+    
+    /// Departments
+    let departmentsData = [
+        "Sales",
+        "Engineering",
+        "Human Resources"
+    ]
+    var departments: [String: NSManagedObject] = [:]
+
+    for deptName in departmentsData {
+        /// Insert the department and set attributes: {name, company}
+        let dept = NSEntityDescription.insertNewObject(forEntityName: "Department", into: context)
+        dept.setValue(deptName, forKey: "name")
+        dept.setValue(company, forKey: "company")
+        departments[deptName] = dept
+    }
+
+    /// Employees
+    let employeesData = [
+        ("Alice Martin", "Sales Manager", "Sales"),
+        ("Bob Sanchez", "Software Engineer", "Engineering"),
+        ("Carol White", "HR Coordinator", "Human Resources"),
+        ("David Chen", "QA Engineer", "Engineering"),
+        ("Eve Summers", "Account Executive", "Sales")
+    ]
+    
+    var employees: [String: NSManagedObject] = [:]
+
+    for (name, role, deptName) in employeesData {
+        guard let dept = departments[deptName] else { continue }
+
+        let emp = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context)
+        emp.setValue(name, forKey: "name")
+        emp.setValue(role, forKey: "role")
+        emp.setValue(dept, forKey: "department")
+        employees[name] = emp
+    }
+
+    /// Sales
+    let salesData: [(employeeName: String, amount: Double, date: String)] = [
+        ("Alice Martin", 15000, "2024-12-01"),
+        ("Eve Summers", 9500, "2025-01-15"),
+        ("Alice Martin", 12000, "2025-02-01"),
+        ("Eve Summers", 7500, "2025-03-10"),
+        ("Alice Martin", 5000, "2025-04-05")
+    ]
+    
+    /// Date format
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    
+    for (empName, amount, dateString) in salesData {
+        guard let emp = employees[empName], let date = formatter.date(from: dateString) else { continue }
+        
+        let sale = NSEntityDescription.insertNewObject(forEntityName: "Sale", into: context)
+        sale.setValue(amount, forKey: "amount")
+        sale.setValue(date, forKey: "date")
+        sale.setValue(emp, forKey: "employee")
+    }
+    
+    /// Save
+    do {
+        try context.save()
+        print("✅ All data inserted.")
+    } catch {
+        print("❌ Save failed -- \(error)")
+    }
+}
+
 // MARK: - Attribute/Relationship Helpers
 extension NSAttributeDescription {
     static func make(name: String, type: NSAttributeType, optional: Bool = false) -> NSAttributeDescription {
