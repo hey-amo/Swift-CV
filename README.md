@@ -1,8 +1,6 @@
 # Swift-CV
 
-This contains a collection of Swift playgrounds aims to demonstrate my capabilities as a modern Swift iOS developer. 
-
-Each playground attempts to focus on key concepts relevant to real-world job iOS requirements.
+A curated set of Swift Playground projects demonstrating iOS development skills for common job iOS requirements.
 
 ## 📌 Goals
 
@@ -18,13 +16,20 @@ Each playground attempts to focus on key concepts relevant to real-world job iOS
 
 ## 📁 Portfolio
 
-A list of Swift playground projects included in this repository, categorised by core development skills relevant to iOS roles.
+Quick summary:
+- Concurrency (GCD + async/await)  *To be done*
+- Core Data modeling and queries *To be done*
+- SwiftUI with MVVM *To be done*
+- Combine Basics *To be done*
+- Unit testing with mocks and protocols *To be done*
+- Protocols *To be done*
 
 | Project | Skills | Description |
 |------------------|------------------------|----------------|
 | `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
 | `EnumDrivenState.playground` | Enums, State Management, Pattern Matching | Illustrates using enums to manage app state, a common approach in SwiftUI and MVVM projects. |
 | `AsyncConcurrency.playground` | GCD, async/await, MainActor | Realistic examples of data fetching and updating using both legacy concurrency and Swift’s structured concurrency. |
-| `CombineBasics.playground` | Combine, Publishers, Reactive Programming | Demonstrates creating Combine pipelines using `Just`, `PassthroughSubject`, debouncing, filtering, and more. |
-| `MVVMMockApp.playground` | SwiftUI, MVVM, Dependency Injection | Mini architecture demo with testable ViewModels and proper separation of concerns using SwiftUI. |
+| `CombineBasics.playground` | Combine, Publishers, Reactive Programming | Demonstrates basic Combine, `PassthroughSubject`, debouncing, filtering, and more. |
+| `MVVMMock.playground` | SwiftUI, MVVM, Dependency Injection | Mini demo with testable ViewModels and MVVM separation of concerns using SwiftUI. |
 | `UnitTestingSwift.playground` | XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols. |
+| `Protocols.playground` | Examples of basic and advanced protocol programming.|
