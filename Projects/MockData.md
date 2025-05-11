@@ -1,3 +1,13 @@
+# Mock data 
+
+ ### Relationships:
+
+ - A `Company` has many `Departments`
+ - A `Department` has many `Employees`
+ - An `Employee` has many `Sales`
+
+ `Company` → `Department` → `Employee` → `Sale`
+
 ### Company
 
  | ID | Name   |
@@ -31,3 +41,5 @@
 | S003    | 12,000 | 2025-02-01 | Alice Martin |
 | S004    | 7,500  | 2025-03-10 | Eve Summers  |
 | S005    | 5,000  | 2025-04-05 | Alice Martin |
+
+
