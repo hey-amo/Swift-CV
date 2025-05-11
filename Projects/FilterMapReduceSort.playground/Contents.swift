@@ -71,6 +71,11 @@ class Company: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
     var departments: [Department]
+    var employees: [Employee] {
+        get {
+            departments.flatMap { $0.employees }
+        }
+    }
     
     init(id: Int, name: String, departments: [Department] = []) {
         self.id = id
@@ -172,28 +177,51 @@ let departments = [
     Department(id: 3, name: "Human Resources", company: company, employees: []),
 ]
 
-/// Get specific departments
-let salesDpt = departments.filter { $0.name == "Sales"}.first!
-let engineeringDpt  = departments.filter { $0.name == "Engineering"}.first!
-let hrDept  = departments.filter { $0.name == "Human Resources"}.first!
+/// Assign the departments to the company
+company.departments = departments
+
+/// Make a dictionary mapping a department to its name
+let departmentByName = Dictionary(uniqueKeysWithValues: departments.map { ($0.name, $0) })
 
 /// Create employees
 let employees = [
-    Employee(id: 1, name: "Alice Martin", role: "Sales Manager", department: salesDpt, sales: []),
-    Employee(id: 2, name: "Bob Sanchez", role: "Software Engineer", department: engineeringDpt, sales: []),
-    Employee(id: 3, name: "Carol White", role: "HR Coordinator", department: hrDept, sales: []),
-    Employee(id: 4, name: "David Chen", role: "QA Engineer", department: engineeringDpt, sales: []),
-    Employee(id: 5, name: "Eve Summers", role: "Account Executive", department: salesDpt, sales: []),
+    Employee(id: 1, name: "Alice Martin", role: "Sales Manager", department: departmentByName["Sales"], sales: []),
+    Employee(id: 2, name: "Bob Sanchez", role: "Software Engineer", department: departmentByName["Engineering"], sales: []),
+    Employee(id: 3, name: "Carol White", role: "HR Coordinator", department: departmentByName["Human Resources"], sales: []),
+    Employee(id: 4, name: "David Chen", role: "QA Engineer", department: departmentByName["Engineering"], sales: []),
+    Employee(id: 5, name: "Eve Summers", role: "Account Executive", department: departmentByName["Sales"], sales: []),
 ]
+
+/// Make a dictionary mapping an employee by its name
+let employeeByName = Dictionary(uniqueKeysWithValues: employees.map { ($0.name, $0) })
 
 /// Create sales
 let sales = [
-    Sale(id: 1, amount: Double(15000), date: "2024-12-01" , employee: nil), // Alice Martin
-    Sale(id: 2, amount: Double(9500), date: "2025-01-15" , employee: nil), // Eve Summers
-    Sale(id: 3, amount: Double(12000), date: "2024-12-01" , employee: nil), // Alice Martin
-    Sale(id: 4, amount: Double(7500), date: "2025-02-01" , employee: nil), // Eve Summers
-    Sale(id: 5, amount: Double(5000), date: "2025-04-05" , employee: nil), // Alice Martin
+    Sale(id: 1, amount: Double(15000), date: "2024-12-01" , employee: employeeByName["Alice Martin"]), // Alice Martin
+    Sale(id: 2, amount: Double(9500), date: "2025-01-15" , employee: employeeByName["Eve Summers"]), // Eve Summers
+    Sale(id: 3, amount: Double(12000), date: "2024-12-01" , employee: employeeByName["Alice Martin"]), // Alice Martin
+    Sale(id: 4, amount: Double(7500), date: "2025-02-01" , employee: employeeByName["Eve Summers"]), // Eve Summers
+    Sale(id: 5, amount: Double(5000), date: "2025-04-05" , employee: employeeByName["Alice Martin"]), // Alice Martin
 ]
+
+// Tie everything up
+
+/// Link employees back to their departments
+for employee in employees {
+    employee.department?.employees.append(employee)
+}
+
+/// Link sales back to their employees
+for sale in sales {
+    sale.employee?.sales.append(sale)
+}
+
+printCompanyStructure(company: company)
+
+// MARK: Exit playground
+
+print("\n\n-- Exiting Playground -- ")
+PlaygroundPage.current.finishExecution()
 
 // ---
 
@@ -237,6 +265,11 @@ func findEmployeeById(_ id: Int, in employees: [Employee]) -> Employee? {
     return employees.filter { $0.id == id }.first
 }
 
+/// Use `filter` to find the first matching department by name
+func findFirstDepartmentByName(_ name: String, in departments: [Department]) -> Department? {
+    return departments.filter { $0.name == name}.first
+}
+
 // ---
 
 // MARK: Helper functions
@@ -250,7 +283,7 @@ func addSale(to: Employee) {
 }
 
 func printCompanyStructure(company: Company) {
-    print("# Company: \(company.name)\n-----------")
+    print("# Company: \(company.name)\n---------------")
     
     if company.departments.isEmpty {
         print("No departments found")
@@ -258,7 +291,8 @@ func printCompanyStructure(company: Company) {
     }
     
     for dept in company.departments {
-        print("  > Dept: \(dept.name)")
+        print("  > Dept: \(dept.name)\n---------------")
+        
         
         if dept.employees.isEmpty {
             print("    > No employees found for this department")
