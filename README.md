@@ -2,7 +2,7 @@
 
 A curated set of Swift Playground projects demonstrating iOS development skills for common job iOS requirements.
 
-## 📌 Goals
+## Goals
 
 - Use standalone swift playground to showcase core Swift/iOS development concepts
 - Highlight understanding of concurrency, Core Data, Combine, and basic SwiftUI architecture
@@ -32,4 +32,4 @@ Quick summary:
 | `CombineBasics.playground` | Combine, Publishers, Reactive Programming | Demonstrates basic Combine, `PassthroughSubject`, debouncing, filtering, and more. |
 | `MVVMMock.playground` | SwiftUI, MVVM, Dependency Injection | Mini demo with testable ViewModels and MVVM separation of concerns using SwiftUI. |
 | `UnitTestingSwift.playground` | XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols. |
-| `Protocols.playground` | Examples of basic and advanced protocol programming.|
+| `Protocols.playground` | Protocols |Examples of basic and advanced protocol programming.|
