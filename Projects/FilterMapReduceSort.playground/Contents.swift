@@ -9,16 +9,15 @@
  -> See: MockData.md
 
  ### Features
-
- - Show me:
-    - [F00] Company structure output
-    - [F01] All employees grouped by department
-    - [F02] Total sales per employee
-    - [F03] The top salesperson per department
-    - [F04] Employees with no sales
-    - [F05] Departments with the most employees
-    - [F06] Top 3 sales by amount (across all employees)
-    - [F07] Sales Leaderboard
+ 
+ - [F00] Company structure output
+ - [F01] All employees grouped by department
+ - [F02] Total sales per employee
+ - [F03] The top salesperson per department
+ - [F04] Employees with no sales
+ - [F05] Departments with the most employees
+ - [F06] Top 3 sales by amount (across all employees)
+ - [F07] Sales Leaderboard
  */
 
 import Foundation
@@ -127,6 +126,7 @@ struct LeaderboardEntry: Hashable, Identifiable, Equatable {
 // ---
 
 // MARK: Create data
+
 let company = Company(id: 1, name: "Acme Inc", departments: [])
 
 /// Create departments
@@ -217,7 +217,6 @@ showTopSalesPersonPerDepartment(in: company)
     
 print ("\n--------------------\n")
 
-
 // - [F04] Employees with no sales
 print ("# [F04] Employees with no sales \n")
 showAllEmployeesWithNoSales(in: company)
@@ -229,7 +228,6 @@ print ("# [F05] Departments with the most employees \n")
 showAllDepartmentsWithMostEmployees(in: company)
 
 print ("\n--------------------\n")
-
 
 // - [F06] Top 3 sales by amount (across all employees)
 print ("# [F06] Top 3 sales by amount (across all employees) \n")
