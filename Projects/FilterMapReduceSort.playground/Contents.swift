@@ -241,6 +241,51 @@ func findEmployeeById(_ id: Int, in employees: [Employee]) -> Employee? {
 
 // MARK: Helper functions
 
+func addEmployee(to: Department) {
+    
+}
+
+func addSale(to: Employee) {
+    
+}
+
+func printCompanyStucture(company: Company) {
+    print("# Company: \(company.name)")
+    print ("\n ----------- ")
+    
+    if let departments = company.departments {
+        
+        for dept in departments {
+            print("  > Dept: \(dept.name)")
+            
+            if let departmentEmployees = dept.employees {
+                
+                for emp in departmentEmployees {
+                    print("    > Employee: \(emp.name)")
+                    
+                    if let employeeSales = emp.sales {
+                        
+                        for sale in employeeSales {
+                            print("      > Sale: $\(sale.amount)")
+                        }
+                        
+                    } else {
+                        print("      > No sales for this employee")
+                    }
+                }
+                
+            }
+            else {
+                print("    > No employees found for this department")
+            }
+        }
+    }
+    else {
+        print ("No departments found")
+    }
+}
+
+
 func dateFormatter() -> DateFormatter {
     /// Date format helper
     let formatter = DateFormatter()
