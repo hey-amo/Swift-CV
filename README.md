@@ -1,6 +1,8 @@
 # Swift-CV
 
-This contains a collection of Swift playgrounds aims to demonstrate my capabilities as a modern Swift iOS developer. Each playground is focused, annotated, and explains key concepts relevant to real-world job requirements.
+This contains a collection of Swift playgrounds aims to demonstrate my capabilities as a modern Swift iOS developer. 
+
+Each playground attempts to focus on key concepts relevant to real-world job iOS requirements.
 
 ## 📌 Goals
 
@@ -12,11 +14,11 @@ This contains a collection of Swift playgrounds aims to demonstrate my capabilit
 - Persistent storage (like saving to disk) may not work well, or be practical in Playgrounds.
 - UI-based features (e.g., SwiftUI + Core Data) are limited in playground environment
 - Some samples may seem rudimentary to outside observers
-- Projects are designed for demonstration, not production
+- Projects are designed for **demonstration**, not production
 
 ## 📁 Portfolio
 
-This file outlines each Swift playground project included in this repository, categorised by core development skills relevant to iOS roles.
+A list of Swift playground projects included in this repository, categorised by core development skills relevant to iOS roles.
 
 | Project | Skills | Description |
 |------------------|------------------------|----------------|
