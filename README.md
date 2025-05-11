@@ -16,9 +16,9 @@ This contains a collection of Swift playgrounds aims to demonstrate my capabilit
 
 ## 📁 Portfolio
 
-This file outlines each Swift playground project included in this repository, categorized by core development skills relevant to iOS roles.
+This file outlines each Swift playground project included in this repository, categorised by core development skills relevant to iOS roles.
 
-| ✅ Project Title | 🚀 Skills Demonstrated | 💬 Description |
+| Project | Skills | Description |
 |------------------|------------------------|----------------|
 | `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
 | `EnumDrivenState.playground` | Enums, State Management, Pattern Matching | Illustrates using enums to manage app state, a common approach in SwiftUI and MVVM projects. |
