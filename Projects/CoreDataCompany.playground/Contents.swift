@@ -12,7 +12,7 @@
  --
 
  ## Entities
-
+ 
  - `Company` - Attributes: {name: (String)}. Relationship: departments (1-to-many)
  - `Department`- Attributes: {name: (String)}. Relationship: company (many-to-1), employees (1-to-many)
  - `Employee`- Attributes: {name: (String), role: (String)}. Relationship: department (many-to-1), sales (1-to-many)
