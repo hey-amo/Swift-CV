@@ -67,32 +67,91 @@ import PlaygroundSupport
 
 // MARK: Models
 
-struct Company: Hashable, Identifiable {
+class Company: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
     let departments: [Department]?
+    
+    init(id: Int, name: String, departments: [Department]?) {
+        self.id = id
+        self.name = name
+        self.departments = departments
+    }
+        
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    static func == (lhs: Company, rhs: Company) -> Bool {
+        return (lhs.id == rhs.id)
+    }
 }
 
-struct Department: Hashable, Identifiable {
+class Department: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
     let company: Company?
     let employees: [Employee]?
+    
+    init(id: Int, name: String, employees: [Employee]?) {
+        self.id = id
+        self.name = name
+        self.employees = employees
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    static func == (lhs: Department, rhs: Department) -> Bool {
+        return (lhs.id == rhs.id)
+    }
 }
 
-struct Employee: Hashable, Identifiable, Equatable {
+class Employee: Hashable, Identifiable, Equatable {
     let id: Int
     let name: String
     let role: String
     let department: Department?
     let sales: [Sale]?
+    
+    init(id: Int, name: String, role: String, department: Department?, sales: [Sale]?) {
+        self.id = id
+        self.name = name
+        self.role = role
+        self.department = department
+        self.sales = sales
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    static func == (lhs: Employee, rhs: Employee) -> Bool {
+        return (lhs.id == rhs.id)
+    }
 }
 
-struct Sale: Hashable, Identifiable, Equatable {
+class Sale: Hashable, Identifiable, Equatable {
     let id: Int
     let amount: Double
     let date: String
     let employee: Employee?
+    
+    init(id: Int, amount: Double, date: String, employee: Employee?) {
+        self.id = id
+        self.amount = amount
+        self.date = date
+        self.employee = employee
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    static func == (lhs: Sale, rhs: Sale) -> Bool {
+        return (lhs.id == rhs.id)
+    }
 }
 
 /// For [F07] Sales Leaderboard
