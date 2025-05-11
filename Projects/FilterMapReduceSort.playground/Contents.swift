@@ -220,6 +220,7 @@ print ("\n--------------------\n")
 
 // - [F04] Employees with no sales
 print ("# [F04] Employees with no sales \n")
+showAllEmployeesWithNoSales(in: company)
 
 print ("\n--------------------\n")
 
@@ -341,23 +342,47 @@ func showTopSalesPersonPerDepartment(in company: Company) {
         
         if let top = top {
             let total = top.sales.reduce(0.0) { $0 + $1.amount }
-            print (" `\(dept.name)` top seller is \(top.name) - $\(total)\n" )
+            print (" `\(dept.name)` top seller is \(top.name) - $\(total)" )
         }
         
     }
 }
 
 // - [F04] Employees with no sales
-func showAllEmployeesWithNoSales() {}
+func showAllEmployeesWithNoSales(in company: Company) {
+    let allEmployees = company.departments.flatMap { $0.employees }
+
+    
+    let noSalesEmployees = allEmployees.filter {
+           $0.sales.isEmpty || $0.sales.reduce(0.0) { $0 + $1.amount } <= 0.0
+       }
+    
+    
+    
+    if noSalesEmployees.isEmpty {
+            print("All employees have sales.")
+        } else {
+            noSalesEmployees.forEach {
+                print("👤 \($0.name) – \($0.role) has no sales")
+            }
+        }
+}
 
 // - [F05] Departments with the most employees
-func findDepartmentsWithMostEmployees() {}
+func findDepartmentsWithMostEmployees(in company: Company) {
+    let _ = company.departments.flatMap { return $0.employees }
+    
+}
 
 // - [F06] Top 3 sales by amount (across all employees)
-func findTop3SalesByAmount() {}
+func findTop3SalesByAmount(in company: Company) {
+    
+}
 
 // - [F07] Sales Leaderboard
-func showSalesLeaderboard() {}
+func showSalesLeaderboard(for company: Company) {
+    
+}
 
 // ---
 
