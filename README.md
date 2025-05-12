@@ -5,7 +5,6 @@ A curated set of Swift Playground projects demonstrating iOS development skills 
 ## Goals
 
 - Use standalone swift playground to showcase core Swift/iOS development concepts
-- Highlight understanding of concurrency, Core Data, Combine, and basic SwiftUI architecture
 
 ## Known Limitations
 
