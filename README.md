@@ -24,15 +24,15 @@ Each project demonstrates specific iOS development skills that are frequently so
 
 ### 📝 In Progress
 - **Simple Swift Concurrency** - Demonstrations of GCD and modern async/await patterns
+- **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
 
 ### 📝 Planned
-- **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
 - Memory Management and ARC (Automatic Reference Counting
 - Error Handling and Result Type - Using do-try-catch blocks, custom errors
 - Value types vs References - A simple example of when to use structs vs classes
+- Combine Basics- Simple examples of using reactive programming with Combine
 
 <!--
-- 📝 **Combine Basics** - Practical examples of reactive programming with Combine
 ~~- 📝 **Unit Testing** - Test-driven development with protocol-based mocks~~
 ~~- 📝 **REST API Integration** - Network layer implementation with mock responses~~
 ~~📝 **UIKit & Foundation** - Essential framework usage and patterns~~
