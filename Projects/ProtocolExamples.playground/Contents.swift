@@ -227,16 +227,18 @@ protocol Salaried {
     func taxedSalary() -> Double
 }
 
-extension Employee: Salaried {
-    var baseSalary: Double {
-        return Double(100)
-    }
-    
+extension Salaried {
     func taxedSalary() -> Double {
         let taxRate = Double(10)
         let result = baseSalary * ((taxRate / 100))
         
         return taxRate
+    }
+}
+
+extension Employee: Salaried {
+    var baseSalary: Double {
+        return Double(100)
     }
 }
 
