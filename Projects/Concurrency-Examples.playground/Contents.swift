@@ -16,8 +16,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  - MainActor
  
  # **IMPORTANT**
- # As this handles background queues, there is a chance
- # that this playground may stall or hangs.
+ # This playground handles background queues, there is a chance that this playground may stall or hang.
  #
 */
 
