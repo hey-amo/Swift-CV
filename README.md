@@ -33,12 +33,15 @@ Each project demonstrates specific iOS development skills that are frequently so
 
 
 ~~~- 📝 **SwiftUI with MVVM** - Implementation of the Model-View-ViewModel architecture in SwiftUI~~
+
+<!--
 - 📝 **Combine Basics** - Practical examples of reactive programming with Combine
 ~~- 📝 **Unit Testing** - Test-driven development with protocol-based mocks~~
 ~~- 📝 **REST API Integration** - Network layer implementation with mock responses~~
 ~~📝 **UIKit & Foundation** - Essential framework usage and patterns~~
 ~~📝 **SOLID Principles** - Practical application of software design principles~~
 ~~📝 **TCA & Reactive Programming** - The Composable Architecture and reactive patterns~~
+-->
 
 ---
 
