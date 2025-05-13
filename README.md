@@ -1,32 +1,66 @@
-# Swift-CV
+# Swift.cv
 
-A curated set of Swift Playground projects demonstrating my iOS development skills for common job iOS requirements.
+A curated collection of Swift Playground projects demonstrating my iOS development expertise for common job requirements.
 
-## Goals
+---
 
-- Use standalone swift playground to showcase core Swift/iOS development concepts
+## 🎯 Purpose
 
-## Known Limitations
+This repo aims to be a portfolio of demos showcasing common Swift programming concepts.
 
-- Persistent storage (like saving to disk) may not work well, or be practical in Playgrounds.
-- UI-based features (e.g., SwiftUI + Core Data) are limited in playground environment
-- Some samples may seem rudimentary to outside observers
-- Projects are designed for **demonstration**, not production
+These are *standalone* swift playground to showcase core Swift/iOS development concepts.
 
-## 📁 Portfolio
+Each project demonstrates specific iOS development skills that are frequently sought by employers.
 
-- ✅ `FilterMapReduceSort` - Examples of functional coding on mock data with multiple relationships 
-- ✅ `ProtocolExamples` - 4 simple examples of protocols, generic protocols, advanced protocol usage
-- `CoreDataCompany` - Basic Core Data modeling and queries - *In progress*
-- ~~Swift concurrency models (GCD + async/await)~~ - *To be done*
-<!--
-- ~~SwiftUI with MVVM~~ - *To be done*
-- ~~Combine Basics~~ - *To be done*
-- ~~Unit testing with mocks and protocols~~ - *To be done*
-- ~~REST with mock data~~ - *To be done*
-- ~~UIKit, Foundation~~ - *To be done*
-- ~~SOLID principles~~ - *To be done*
-- ~~TCA, and reactive programming~~ *To be done* -->
+---
+
+## 📂 Portfolio
+
+### Completed
+- ✅ **FilterMapReduceSort** - Demonstrates functional programming techniques with complex relational data 
+- ✅ **ProtocolExamples** - Showcases 4 practical implementations of protocols, from basic to advanced usage
+
+---
+
+### In Progress
+- 📝 **Simple Swift Concurrency** - Demonstrations of GCD and modern async/await patterns
+
+### Planned
+- **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
+- Memory Management and ARC (Automatic Reference Counting
+- Error Handling and Result Type - Using do-try-catch blocks, custom errors
+- Value types vs References - A simple example of when to use structs vs classes
+
+
+~~~- 📝 **SwiftUI with MVVM** - Implementation of the Model-View-ViewModel architecture in SwiftUI~~
+- 📝 **Combine Basics** - Practical examples of reactive programming with Combine
+~~- 📝 **Unit Testing** - Test-driven development with protocol-based mocks~~
+~~- 📝 **REST API Integration** - Network layer implementation with mock responses~~
+~~📝 **UIKit & Foundation** - Essential framework usage and patterns~~
+~~📝 **SOLID Principles** - Practical application of software design principles~~
+~~📝 **TCA & Reactive Programming** - The Composable Architecture and reactive patterns~~
+
+---
+
+## ⚠️ Known limitations
+
+- These projects are designed for **demos** rather than production use
+- Swift Playgrounds have certain limitations:
+  - Persistent storage operations may be restricted
+  - Complex UI interactions with Core Data have playground-specific constraints
+- Each project tries to focuses on clarity of concept rather than production-ready implementation
+
+---
+
+## 🔍 How to Use
+
+1. Clone this repository
+2. Open the desired `.playground` file in Xcode
+3. Run the playground to see the implementation and results
+4. Explore the code comments for detailed explanations of concepts and techniques
+
+
+
 
 <!--
 | Project | Skills | Description |
