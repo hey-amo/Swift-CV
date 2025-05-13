@@ -12,9 +12,16 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  - Dispatch queues
  - Basic GCD (Grand Central Dispatch) queue
  
- # **IMPORTANT**
- # This playground handles background queues, there is a chance that this playground may stall or hang.
- #
+ # IMPORTANT #############
+ # This playground handles background queues,
+ # there is a chance that this playground may stall
+ # or hang.
+ #########################
+ 
+ # Examples:
+ - Example 1 - Basic Async
+ - Example 2 - Fetch with async
+ - Example 3 - Simple GCD example
 */
 
 // MARK: Quick `async` vs `sync` discussion
@@ -127,12 +134,13 @@ var productManager = ProductManager()
 ///  `.background` has the lowest priority
 ///  `.userInitiated` and `.userInteractive` have the highest priority
 
+// ---
 
-// We're starting a task
-dispatchGroup.enter()
-
+// MARK: Example 1 - Basic Async
 print ("Example #1: Basic Async Dispatch")
 print ("\n--------------------\n")
+
+dispatchGroup.enter()
 
 /// Delayed Execution with `asyncAfter`
 /// Schedules a work item for execution at the specified time, and returns immediately.
@@ -162,7 +170,9 @@ myCustomQueue.asyncAfter(deadline: .now() + 1.0) {
     dispatchGroup.leave()
 }
 
-print ("Example #2: Fetch products with async")
+// MARK: Example 2 - Fetch with async
+
+print ("Example #2: Fetch with async")
 print ("\n--------------------\n")
 
 dispatchGroup.enter()
@@ -195,9 +205,14 @@ DispatchQueue.global(qos: .userInitiated).async {
     }
 }
 
+// --
+
+// MARK: Example 3 - GCD examples
+
+
+// --
+
 print("\n>> Main thread continues without waiting <<\n")
-
-
 
 print ("\n--------------------\n")
 
