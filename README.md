@@ -19,7 +19,7 @@ These are *standalone* swift playground to showcase core Swift/iOS development c
 ---
 
 ### 📝 In Progress
-- **Simple Swift Concurrency** - Demonstrations of GCD and modern async/await patterns
+- **SimpleDispatch** - Concurrency - Simple dispatch (GCD)
 - **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
 
 ### 📝 Planned

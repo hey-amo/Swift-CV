@@ -5,15 +5,12 @@ import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 /**
-# Basic Concurrency examples
+# SimpleDispatch
  
  A standalone Swift playground project to demonstrate simple examples for:
  
- - Dispatch
+ - Dispatch queues
  - Basic GCD (Grand Central Dispatch) queue
- - Async/Await
- - Task
- - MainActor
  
  # **IMPORTANT**
  # This playground handles background queues, there is a chance that this playground may stall or hang.
