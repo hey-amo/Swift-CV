@@ -238,7 +238,7 @@ extension Salaried {
 
 extension Employee: Salaried {
     var baseSalary: Double {
-        return Double(100)
+        return 100_000
     }
 }
 
