@@ -1,16 +1,12 @@
 # Swift.cv
 
-A curated collection of Swift Playground projects demonstrating my iOS development expertise for common job requirements.
+A curation of demos showcasing common Swift programming concepts to demonstrate my iOS development understanding.
 
 ---
 
 ## 🎯 Purpose
 
-This repo aims to be a portfolio of demos showcasing common Swift programming concepts.
-
 These are *standalone* swift playground to showcase core Swift/iOS development concepts.
-
-Each project demonstrates specific iOS development skills that are frequently sought by employers.
 
 ---
 
@@ -45,10 +41,15 @@ Each project demonstrates specific iOS development skills that are frequently so
 ## ⚠️ Known limitations
 
 - These projects are designed for **demos** rather than production use
+- I am not an expert Swift developer; so some best practices may not be followed exactly
+- They might seem a bit rudimentary
+- Each project tries to focuses on concepts, rather than production-ready implementation.
+
+### Technical limitations
+
 - Swift Playgrounds have certain limitations:
-  - Persistent storage operations may be restricted
-  - Complex UI interactions with Core Data have playground-specific constraints
-- Each project tries to focuses on clarity of concept rather than production-ready implementation
+- Persistent storage might be restricted, or don't work correctly.
+- Complex UI interactions with Core Data have playground-specific constraints
 
 ---
 
