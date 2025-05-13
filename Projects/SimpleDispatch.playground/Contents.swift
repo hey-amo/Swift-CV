@@ -5,20 +5,23 @@ import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 /**
-# Basic Concurrency examples
+# SimpleDispatch
  
  A standalone Swift playground project to demonstrate simple examples for:
  
- - Dispatch
+ - Dispatch queues
  - Basic GCD (Grand Central Dispatch) queue
- - Async/Await
- - Task
- - MainActor
  
- # **IMPORTANT**
- # As this handles background queues, there is a chance
- # that this playground may stall or hangs.
- #
+ # IMPORTANT #############
+ # This playground handles background queues,
+ # there is a chance that this playground may stall
+ # or hang.
+ #########################
+ 
+ # Examples:
+ - Example 1 - Basic Async
+ - Example 2 - Fetch with async
+ - Example 3 - Simple GCD example
 */
 
 // MARK: Quick `async` vs `sync` discussion
@@ -35,6 +38,17 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 /// [x] The task is long-running
 ///
 /// Practically, async is more safer and better suited for most app use cases.
+
+
+// Create a DispatchGroup to track all the async work
+let dispatchGroup = DispatchGroup()
+
+// Use a startTime: for tracking how long things take
+let startTime = Date()
+
+print ("** Started at: \(startTime) **")
+
+// -----
 
 // MARK: Mock Data
 
@@ -120,12 +134,13 @@ var productManager = ProductManager()
 ///  `.background` has the lowest priority
 ///  `.userInitiated` and `.userInteractive` have the highest priority
 
+// ---
 
+// MARK: Example 1 - Basic Async
 print ("Example #1: Basic Async Dispatch")
 print ("\n--------------------\n")
 
-let startTime = Date()
-print ("Started at: \(startTime)")
+dispatchGroup.enter()
 
 /// Delayed Execution with `asyncAfter`
 /// Schedules a work item for execution at the specified time, and returns immediately.
@@ -136,10 +151,15 @@ DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
     let formattedOutput = String(format: "%.2f", elasped)
     print ("> Main queue executed after: \(formattedOutput) seconds")
     print("   Thread: \(Thread.current)")
-
+    
+    dispatchGroup.leave() // Task is complete
 })
 
+
+
 /// Use a custom queue label, delay after 1 second
+dispatchGroup.enter()
+
 let myCustomQueue = DispatchQueue(label: "com.example.mycustomQueue")
 print("Custom queue: Scheduling work after 1 second...")
 myCustomQueue.asyncAfter(deadline: .now() + 1.0) {
@@ -147,12 +167,15 @@ myCustomQueue.asyncAfter(deadline: .now() + 1.0) {
     let elapsed = currentTime.timeIntervalSince(startTime)
     print("> Custom queue work executed after \(String(format: "%.2f", elapsed)) seconds")
     print("   Thread: \(Thread.current)")
+    dispatchGroup.leave()
 }
 
-print ("Example #2: Fetch products with async")
+// MARK: Example 2 - Fetch with async
+
+print ("Example #2: Fetch with async")
 print ("\n--------------------\n")
 
-
+dispatchGroup.enter()
 DispatchQueue.global(qos: .userInitiated).async {
     print("Background thread starting work on: \(Thread.current)")
 
@@ -174,20 +197,85 @@ DispatchQueue.global(qos: .userInitiated).async {
                 let discountString = ("Discount: £\(formattedDiscount)")
                 print ("    - \(product.name) : £\(product.price) - \(discountString)")
             }
+            
+            dispatchGroup.leave()
         }
         
         print("[X] Async Completed\n")
     }
 }
 
+// --
+
+// MARK: Example 3 - Simple GCD example
+
+/// Make serial, concurrent queues for demo reasons
+let serialQueue1 = DispatchQueue(label: "com.example.serialQueue1")
+let serialQueue2 = DispatchQueue(label: "com.example.serialQueue2")
+let concurrentQueue = DispatchQueue(label: "com.example.concurrentQueue", attributes: .concurrent)
+
+/// Simulate a long-running task for demo purposes
+func simulateWork(for duration: TimeInterval = 0.25) {
+    Thread.sleep(forTimeInterval: duration )
+}
+
+func timeElapsed() -> String {
+    return String(format: "%.2f", Date().timeIntervalSince(startTime))
+}
+
+let stopwatch = Date()
+
+print ("Starting at: \(stopwatch)")
+
+/// Run serial queue 1
+dispatchGroup.enter()
+serialQueue1.async {
+    print ("Serial queue 1 - starting at: \(timeElapsed()) on thread: \(Thread.current)")
+    simulateWork(for: 1.0)
+    print ("Serial queue 1 - finished at \(timeElapsed())")
+    dispatchGroup.leave()
+}
+
+/// Run 3 concurrent tasks (running in parallel)
+for i in 1...3 {
+    dispatchGroup.enter()
+    
+    concurrentQueue.async {
+        print ("Concurrent queue - started at: \(timeElapsed()) on thread: \(Thread.current)")
+        
+        let duration = i == 2 ? 3.0 : 1.0
+        
+        simulateWork(for: duration)
+        print ("Concurrent queue - finished at: \(timeElapsed()) on thread: \(Thread.current)")
+        
+        dispatchGroup.leave()
+    }
+}
+
+/// Run serial queue 2
+dispatchGroup.enter()
+serialQueue2.async {
+    print ("Serial queue 2 - starting at: \(timeElapsed()) on thread: \(Thread.current)")
+    simulateWork(for: 2.0)
+    print ("Serial queue 2 - finished at \(timeElapsed())")
+    dispatchGroup.leave()
+}
+
+// --
+
 print("\n>> Main thread continues without waiting <<\n")
-
-
 
 print ("\n--------------------\n")
 
 // MARK: Exit playground
 
-//print("\n\n-- Exiting Playground -- ")
-PlaygroundPage.current.finishExecution()
-
+/// Use notify to let us know when all dispatch work is done
+dispatchGroup.notify(queue: .main) {
+    let currentTime = Date()
+    let elaspedTime = currentTime.timeIntervalSince(startTime)
+    let formattedTime = String(format: "%.2f", elaspedTime)
+    print ("\n>> All tasks completed after \(formattedTime) seconds <<")
+    
+    print("\n\n-- Exiting Playground -- ")
+    PlaygroundPage.current.finishExecution()
+}
