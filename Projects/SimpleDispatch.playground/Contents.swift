@@ -207,8 +207,59 @@ DispatchQueue.global(qos: .userInitiated).async {
 
 // --
 
-// MARK: Example 3 - GCD examples
+// MARK: Example 3 - Simple GCD example
 
+/// Make serial, concurrent queues for demo reasons
+let serialQueue1 = DispatchQueue(label: "com.example.serialQueue1")
+let serialQueue2 = DispatchQueue(label: "com.example.serialQueue2")
+let concurrentQueue = DispatchQueue(label: "com.example.concurrentQueue", attributes: .concurrent)
+
+/// Simulate a long-running task for demo purposes
+func simulateWork(for duration: TimeInterval = 0.25) {
+    Thread.sleep(forTimeInterval: duration )
+}
+
+func timeElapsed() -> String {
+    return String(format: "%.2f", Date().timeIntervalSince(startTime))
+}
+
+let stopwatch = Date()
+
+print ("Starting at: \(stopwatch)")
+
+/// Run serial queue 1
+dispatchGroup.enter()
+serialQueue1.async {
+    print ("Serial queue 1 - starting at: \(timeElapsed()) on thread: \(Thread.current)")
+    simulateWork(for: 1.0)
+    print ("Serial queue 1 - finished at \(timeElapsed())")
+    dispatchGroup.leave()
+}
+
+/// Run 3 concurrent tasks (running in parallel)
+for i in 1...3 {
+    dispatchGroup.enter()
+    
+    concurrentQueue.async {
+        print ("Concurrent queue - started at: \(timeElapsed()) on thread: \(Thread.current)")
+        
+        let duration = i == 2 ? 3.0 : 1.0
+        
+        simulateWork(for: duration)
+        print ("Concurrent queue - finished at: \(timeElapsed()) on thread: \(Thread.current)")
+        
+        dispatchGroup.leave()
+    }
+}
+
+/// Run serial queue 2
+dispatchGroup.enter()
+serialQueue2.async {
+    print ("Serial queue 2 - starting at: \(timeElapsed()) on thread: \(Thread.current)")
+    simulateWork(for: 2.0)
+    print ("Serial queue 2 - finished at \(timeElapsed())")
+    dispatchGroup.leave()
+}
 
 // --
 
