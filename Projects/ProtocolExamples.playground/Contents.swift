@@ -14,7 +14,7 @@ import PlaygroundSupport
  
  [F01]: Use a reusable, common property (name) across models
  [F02]: Add salaries, taxRate to employees; using protocols
- [F03]: Show advanced protocol usage — especially associated types and composition.
+ [F03]: Use a generic report: showing advanced protocol usage, associated types and composition.
 
 */
 
@@ -211,7 +211,7 @@ extension Double {
 
 // ---
 
-// MARK: Feature implementation
+// MARK: Features implementation
 
 // ---
 
@@ -282,29 +282,56 @@ extension Employee: Salaried {
     }
 }
 
-
-
 /// Create a random tax rate between 1-10% for demo purposes
 let taxRate = Double(Int.random(in: 1...10))
 
 /// Print out the employee with base salary, tax rate, net tax
+print ("Employees, base salary, tax and net-tax:\n")
 company.departments
     .flatMap { $0.employees }
     .forEach { emp in
         let tax = emp.baseSalary * (taxRate / 100)
         let net = emp.baseSalary - tax
         
-        print("\(emp.name): Base $\(emp.baseSalary), Tax $\(tax), Net $\(net)")
+        print("\(emp.name): Base \(emp.baseSalary.formattedAsCurrency), Tax \(tax.formattedAsCurrency), Net \(net.formattedAsCurrency)")
 }
 
 print ("\n--------------------\n")
 
 // ---
 
-// [F03]: Show advanced protocol usage — especially associated types and composition.
+// [F03]: Use a generic report: showing advanced protocol usage, associated types and composition.
 
-protocol Reportable {}
+protocol Reportable {
+    associatedtype DataType
+    var title: String { get }
+    var data: [DataType] { get }
+    func format(_ item: DataType) -> String
+}
 
+struct Reporter<T: Reportable> {
+    let report: T
+
+    func printReport() {
+        print("📄 Report: \(report.title)")
+        report.data.forEach { print(report.format($0)) }
+    }
+}
+
+extension Employee: Reportable {
+    var data: [String] {
+        return ["one", "two", "three"]
+    }
+    
+    typealias DataType = String
+    
+    var title: String {
+        return "Salary"
+    }
+    func format(_ item: String) -> String {
+        return item
+    }
+}
 
 
 
