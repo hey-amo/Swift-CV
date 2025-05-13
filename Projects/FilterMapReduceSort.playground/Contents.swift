@@ -272,7 +272,7 @@ PlaygroundPage.current.finishExecution()
 
 // ---
 
-// MARK: Features
+// MARK: Features implementation
 
 /// - [F0A] Quick examples of filter, map, reduce, sort
 func printQuickFunctionalExamples(for company: Company) {

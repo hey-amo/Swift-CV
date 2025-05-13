@@ -186,12 +186,32 @@ for sale in sales {
     sale.employee?.sales.append(sale)
 }
 
+// MARK: Helpers
 
+struct FormatterCache {
+    static let currency: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 0
+        formatter.allowsFloats = false
+        formatter.roundingMode = .ceiling
+        formatter.alwaysShowsDecimalSeparator = false
+        return formatter
+    }()
+}
+
+extension Double {
+    var formattedAsCurrency: String {
+        return FormatterCache.currency.string(from: NSNumber(value: self)) ?? "$???"
+    }
+}
 
 
 // ---
 
-// MARK: Features
+// MARK: Feature implementation
 
 // ---
 
@@ -261,6 +281,8 @@ extension Employee: Salaried {
         }
     }
 }
+
+
 
 /// Create a random tax rate between 1-10% for demo purposes
 let taxRate = Double(Int.random(in: 1...10))
