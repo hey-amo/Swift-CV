@@ -36,6 +36,17 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 ///
 /// Practically, async is more safer and better suited for most app use cases.
 
+
+// Create a DispatchGroup to track all the async work
+let dispatchGroup = DispatchGroup()
+
+// Use a startTime: for tracking how long things take
+let startTime = Date()
+
+print ("** Started at: \(startTime) **")
+
+// -----
+
 // MARK: Mock Data
 
 struct Product: @unchecked Sendable {
@@ -121,11 +132,11 @@ var productManager = ProductManager()
 ///  `.userInitiated` and `.userInteractive` have the highest priority
 
 
+// We're starting a task
+dispatchGroup.enter()
+
 print ("Example #1: Basic Async Dispatch")
 print ("\n--------------------\n")
-
-let startTime = Date()
-print ("Started at: \(startTime)")
 
 /// Delayed Execution with `asyncAfter`
 /// Schedules a work item for execution at the specified time, and returns immediately.
@@ -136,10 +147,15 @@ DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
     let formattedOutput = String(format: "%.2f", elasped)
     print ("> Main queue executed after: \(formattedOutput) seconds")
     print("   Thread: \(Thread.current)")
-
+    
+    dispatchGroup.leave() // Task is complete
 })
 
+
+
 /// Use a custom queue label, delay after 1 second
+dispatchGroup.enter()
+
 let myCustomQueue = DispatchQueue(label: "com.example.mycustomQueue")
 print("Custom queue: Scheduling work after 1 second...")
 myCustomQueue.asyncAfter(deadline: .now() + 1.0) {
@@ -147,12 +163,13 @@ myCustomQueue.asyncAfter(deadline: .now() + 1.0) {
     let elapsed = currentTime.timeIntervalSince(startTime)
     print("> Custom queue work executed after \(String(format: "%.2f", elapsed)) seconds")
     print("   Thread: \(Thread.current)")
+    dispatchGroup.leave()
 }
 
 print ("Example #2: Fetch products with async")
 print ("\n--------------------\n")
 
-
+dispatchGroup.enter()
 DispatchQueue.global(qos: .userInitiated).async {
     print("Background thread starting work on: \(Thread.current)")
 
@@ -174,6 +191,8 @@ DispatchQueue.global(qos: .userInitiated).async {
                 let discountString = ("Discount: £\(formattedDiscount)")
                 print ("    - \(product.name) : £\(product.price) - \(discountString)")
             }
+            
+            dispatchGroup.leave()
         }
         
         print("[X] Async Completed\n")
@@ -188,6 +207,13 @@ print ("\n--------------------\n")
 
 // MARK: Exit playground
 
-//print("\n\n-- Exiting Playground -- ")
-PlaygroundPage.current.finishExecution()
-
+/// Use notify to let us know when all dispatch work is done
+dispatchGroup.notify(queue: .main) {
+    let currentTime = Date()
+    let elaspedTime = currentTime.timeIntervalSince(startTime)
+    let formattedTime = String(format: "%.2f", elaspedTime)
+    print ("\n>> All tasks completed after \(formattedTime) seconds <<")
+    
+    print("\n\n-- Exiting Playground -- ")
+    PlaygroundPage.current.finishExecution()
+}
