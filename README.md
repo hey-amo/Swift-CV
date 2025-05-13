@@ -15,16 +15,17 @@ These are *standalone* swift playground to showcase core Swift/iOS development c
 ### ✅ Completed
 - **FilterMapReduceSort** - Demonstrates functional programming techniques with complex relational data 
 - **ProtocolExamples** - Showcases 4 practical implementations of protocols, from basic to advanced usage
+- **SimpleConcurrency** -  Simple Concurrency demos with dispatch, serial and concurrent queues (GCD)
 
 ---
 
 ### 📝 In Progress
-- **SimpleConcurrency** -  Simple Concurrency demos with dispatch, serial and concurrent queues (GCD)
 - **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
+- **ErrorHandlingDemo** - Error Handling and Result Type - Using do-try-catch blocks, custom errors
+
 
 ### 📝 Planned
 - Memory Management and ARC (Automatic Reference Counting
-- Error Handling and Result Type - Using do-try-catch blocks, custom errors
 - Value types vs References - A simple example of when to use structs vs classes
 - Combine Basics- Simple examples of using reactive programming with Combine
 
