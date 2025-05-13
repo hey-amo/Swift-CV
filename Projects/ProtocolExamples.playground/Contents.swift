@@ -12,8 +12,8 @@ import PlaygroundSupport
 
  ### Features
  
- [F01]: Show a reusable protocol with a common property
- [F02]: Show how default behaviors can be defined and reused.
+ [F01]: Use a reusable, common property (name) across models
+ [F02]: Add salaries, taxRate to employees; using protocols
  [F03]: Show advanced protocol usage — especially associated types and composition.
 
 */
@@ -195,7 +195,7 @@ for sale in sales {
 
 // ---
 
-// [F01]: Show a reusable protocol with a common property, like name.
+// [F01]: Use a reusable, common property (name) across models
 
 protocol NameDelegate {
     var name: String { get }
@@ -219,31 +219,60 @@ print ("\n--------------------\n")
 
 // ---
 
-// [F02]: Show how default behaviors can be defined and reused.
+// [F02]: Add salaries, taxRate to employees; using protocols
 
 ///  Protocol with Default Implementation: Salaried
 protocol Salaried {
     var baseSalary: Double { get }
-    func taxedSalary() -> Double
+    func taxedSalary(taxRate: Double) -> Double
 }
 
 extension Salaried {
-    func taxedSalary() -> Double {
-        let taxRate = Double(10)
-        let result = baseSalary * ((taxRate / 100))
-        
-        return taxRate
+    func taxedSalary(taxRate: Double) -> Double {
+        let tax = baseSalary * (taxRate / 100)
+        let net = (baseSalary - tax)
+        return Double(net)
     }
 }
 
+/// Currently, each `employee` has the same salary; so lets implement a different salary per department, and add an extension to `employee` of departmentType
+
+extension Employee {
+    var departmentType: DepartmentType? {
+        switch department?.name.lowercased() {
+        case "sales": return .sales
+        case "engineering": return .engineering
+        case "human resources": return .hr
+        default: return nil
+        }
+    }
+}
+
+enum DepartmentType {
+    case sales, engineering, hr
+}
 extension Employee: Salaried {
     var baseSalary: Double {
-        return 100_000
+        switch departmentType {
+        case .sales: return 80_000
+        case .engineering: return 95_000
+        case .hr: return 70_000
+        default: return 60_000
+        }
     }
 }
 
-company.employees.forEach { emp in
-    print ( "\(emp.name) has a base salary of $\(emp.baseSalary), post-tax: $ \(emp.taxedSalary())" )
+/// Create a random tax rate between 1-10% for demo purposes
+let taxRate = Double(Int.random(in: 1...10))
+
+/// Print out the employee with base salary, tax rate, net tax
+company.departments
+    .flatMap { $0.employees }
+    .forEach { emp in
+        let tax = emp.baseSalary * (taxRate / 100)
+        let net = emp.baseSalary - tax
+        
+        print("\(emp.name): Base $\(emp.baseSalary), Tax $\(tax), Net $\(net)")
 }
 
 print ("\n--------------------\n")

@@ -287,7 +287,9 @@ func printQuickFunctionalExamples(for company: Company) {
         .sorted { $0.amount > $1.amount } /// sort them
     
     print("Sales > $1000:\n")
-    salesFilter.forEach { print( "\($0.employee?.name ?? "Unknown") made $\($0.amount)" ) }
+    salesFilter.forEach {
+        print( "\($0.employee?.name ?? "Unknown") made \($0.amount.formattedAsCurrency)" )
+    }
     
     // `map`
     /// Usage: Transforms each element in a collection.
@@ -311,7 +313,7 @@ func printQuickFunctionalExamples(for company: Company) {
     
     //print ("Get all sales from all departments: \(flatMapEG)\n")
     flatMapEG.forEach { item in
-        print ("Sale: \(item.employee?.name ?? "Unknown") Department: \(item.employee?.department?.name ?? "Unknown dept") made $\(item.amount)\n")
+        print ("Sale: \(item.employee?.name ?? "Unknown") Department: \(item.employee?.department?.name ?? "Unknown dept") made $\(item.amount.formattedAsCurrency)\n")
     }
 
     // `zip`
@@ -325,7 +327,7 @@ func printQuickFunctionalExamples(for company: Company) {
     
     print ("Pair employee names with their total sales:\n")
     for (name, total) in zipEG {
-        print("👤 Employee: \(name) – Total Sales: $\(total)")
+        print("👤 Employee: \(name) – Total Sales: $\(total.formattedAsCurrency)")
     }
     
     print ("\n---------------\n")
@@ -393,7 +395,7 @@ func showTotalSalesPerEmployee(in company: Company) {
     let allEmployees = company.departments.flatMap { $0.employees }
     allEmployees.forEach { emp in
         let total = emp.sales.reduce(0.0) { $0 + $1.amount }
-        print("👤 \(emp.name): $\(total)")
+        print("👤 \(emp.name): $\(total.formattedAsCurrency)")
     }
 }
 
@@ -423,7 +425,7 @@ func showTopSalesPersonPerDepartment(in company: Company) {
         
         if let top = top {
             let total = top.sales.reduce(0.0) { $0 + $1.amount }
-            print (" `\(dept.name)` top seller is \(top.name) - $\(total)" )
+            print (" `\(dept.name)` top seller is \(top.name) - $\(total.formattedAsCurrency)" )
         }
         
     }
@@ -437,8 +439,6 @@ func showAllEmployeesWithNoSales(in company: Company) {
     let noSalesEmployees = allEmployees.filter {
            $0.sales.isEmpty || $0.sales.reduce(0.0) { $0 + $1.amount } <= 0.0
        }
-    
-    
     
     if noSalesEmployees.isEmpty {
             print("All employees have sales.")
@@ -478,7 +478,7 @@ func showTop3SalesByAmount(in company: Company) {
     
     topSales.forEach { sale in
         let employeeName = sale.employee?.name ?? "(Unknown)"
-        print("💰 $\(sale.amount) – \(employeeName) on \(sale.date)")
+        print("💰 $\(sale.amount.formattedAsCurrency) – \(employeeName) on \(sale.date)")
     }
 }
 
@@ -496,7 +496,7 @@ func showSalesLeaderboard(for company: Company) {
     
     for (index, entry) in ranked.enumerated() {
         let (employee, total) = entry
-        print("\(index + 1). \(employee.name) – $\(total)")
+        print("\(index + 1). \(employee.name) – $\(total.formattedAsCurrency)")
     }
 }
 
@@ -524,14 +524,6 @@ func findFirstDepartmentByName(_ name: String, in departments: [Department]) -> 
 
 // MARK: Helper functions
 
-func addEmployee(to: Department) {
-    
-}
-
-func addSale(to: Employee) {
-    
-}
-
 func dateFormatter() -> DateFormatter {
     /// Date format helper
     let formatter = DateFormatter()
@@ -539,8 +531,8 @@ func dateFormatter() -> DateFormatter {
     return formatter
 }
 
-struct NumberFormatCache {
-    static let currencyRateFormatter: NumberFormatter = {
+struct FormatterCache {
+    static let currency: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.locale = Locale(identifier: "en_US")
         formatter.numberStyle = .currency
@@ -553,16 +545,8 @@ struct NumberFormatCache {
     }()
 }
 
-/*
-func numberFormatter(amount: Int, locale: String = "en_US") -> NumberFormatter {
-    let formatter = NumberFormatter()
-    formatter.locale = Locale(identifier: locale)
-    formatter.numberStyle = .currency
-    formatter.minimumFractionDigits = 0
-    formatter.maximumFractionDigits = 0
-    formatter.allowsFloats = false
-    formatter.roundingMode = .ceiling
-    formatter.alwaysShowsDecimalSeparator = false
-    return formatter
+extension Double {
+    var formattedAsCurrency: String {
+        return FormatterCache.currency.string(from: NSNumber(value: self)) ?? "$???"
+    }
 }
-*/
