@@ -309,6 +309,7 @@ protocol Reportable {
     func format(_ item: DataType) -> String
 }
 
+/// generic report
 struct Reporter<T: Reportable> {
     let report: T
 
@@ -318,22 +319,24 @@ struct Reporter<T: Reportable> {
     }
 }
 
-extension Employee: Reportable {
-    var data: [String] {
-        return ["one", "two", "three"]
-    }
+///  make a struct that conforms to reportable
+struct EmployeeReport: Reportable {
+    let employees: [Employee]
+
+    var title: String { "Employee Salary Report" }
     
-    typealias DataType = String
-    
-    var title: String {
-        return "Salary"
-    }
-    func format(_ item: String) -> String {
-        return item
+    // Binds DataType = Employee
+    var data: [Employee] { employees }
+
+    func format(_ item: Employee) -> String {
+        return "\(item.name): \(item.baseSalary.formattedAsCurrency)"
     }
 }
 
-
+let employeesList =  company.departments.flatMap { $0.employees }
+let report = EmployeeReport(employees: employeesList)
+let reporter = Reporter(report: report)
+reporter.printReport()
 
 print ("\n--------------------\n")
 
