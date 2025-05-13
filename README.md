@@ -16,23 +16,20 @@ Each project demonstrates specific iOS development skills that are frequently so
 
 ## 📂 Portfolio
 
-### Completed
-- ✅ **FilterMapReduceSort** - Demonstrates functional programming techniques with complex relational data 
-- ✅ **ProtocolExamples** - Showcases 4 practical implementations of protocols, from basic to advanced usage
+### ✅ Completed
+- **FilterMapReduceSort** - Demonstrates functional programming techniques with complex relational data 
+- **ProtocolExamples** - Showcases 4 practical implementations of protocols, from basic to advanced usage
 
 ---
 
-### In Progress
-- 📝 **Simple Swift Concurrency** - Demonstrations of GCD and modern async/await patterns
+### 📝 In Progress
+- **Simple Swift Concurrency** - Demonstrations of GCD and modern async/await patterns
 
-### Planned
+### 📝 Planned
 - **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
 - Memory Management and ARC (Automatic Reference Counting
 - Error Handling and Result Type - Using do-try-catch blocks, custom errors
 - Value types vs References - A simple example of when to use structs vs classes
-
-
-~~~- 📝 **SwiftUI with MVVM** - Implementation of the Model-View-ViewModel architecture in SwiftUI~~
 
 <!--
 - 📝 **Combine Basics** - Practical examples of reactive programming with Combine
