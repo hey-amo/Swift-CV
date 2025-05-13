@@ -15,10 +15,10 @@ A curated set of Swift Playground projects demonstrating iOS development skills 
 
 ## 📁 Portfolio
 
-- `FilterMapReduceSort` - Examples of functional coding on mock data with multiple relationships ✅
+- ✅ `FilterMapReduceSort` - Examples of functional coding on mock data with multiple relationships 
+- ✅ `ProtocolExamples` - 3 simple examples of protocols, generic protocols, advanced protocol usage, associated types and composition.
 - `CoreDataCompany` - Basic Core Data modeling and queries - *In progress*
 - ~~Swift concurrency models (GCD + async/await)~~ - *To be done*
-- ~~Protocols~~ - *To be done*
 <!--
 - ~~SwiftUI with MVVM~~ - *To be done*
 - ~~Combine Basics~~ - *To be done*
