@@ -5,7 +5,7 @@ import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 /**
-# Concurrency examples
+# Basic Concurrency examples
  
  A standalone Swift playground project to demonstrate simple examples for:
  
@@ -14,6 +14,11 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  - Async/Await
  - Task
  - MainActor
+ 
+ # **IMPORTANT**
+ # As this handles background queues, there is a chance
+ # that this playground may stall or hangs.
+ #
 */
 
 // MARK: Quick `async` vs `sync` discussion
