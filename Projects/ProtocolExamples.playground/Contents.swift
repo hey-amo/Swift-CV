@@ -15,6 +15,7 @@ import PlaygroundSupport
  [F01]: Use a reusable, common property (name) across models
  [F02]: Add salaries, taxRate to employees; using protocols
  [F03]: Use a generic report: showing advanced protocol usage, associated types and composition.
+ [F04]: Create a protocol uses, returns a generic return type
 
 */
 
@@ -340,6 +341,49 @@ reporter.printReport()
 
 print ("\n--------------------\n")
 
+
+// [F04]: Create a protocol uses, returns a generic return type
+
+/// This example shows a generic implementaiton of a protocol where the consumer doesn’t care how something works, only that it works.
+
+protocol Randomizable {
+    associatedtype Output
+    func randomValue() -> Output // This doesn't care what output is
+}
+
+struct RandomInt: Randomizable {
+    func randomValue() -> Int {
+        Int.random(in: 1...100)
+    }
+}
+
+struct RandomBool: Randomizable {
+    func randomValue() -> Bool {
+        Bool.random()
+    }
+}
+
+/* #TODO
+extension Company: Randomizable {
+    typealias Output = Employee
+
+    func randomValue() -> Employee {
+        let noEmployeeFound = Employee(id: 0, name: "Unknown", role: "Unknown", department: nil)
+        return self.employees.randomElement() ?? noEmployeeFound
+    }
+}*/
+
+/// Make a function where we pass in a generic
+func logRandomValue<R: Randomizable>(_ source: R) {
+    print("Random value: \(source.randomValue())")
+}
+
+// produce a random integer
+logRandomValue(RandomInt())
+logRandomValue(RandomBool())
+
+
+print ("\n--------------------\n")
 
 // MARK: Exit playground
 

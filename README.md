@@ -1,6 +1,6 @@
 # Swift-CV
 
-A curated set of Swift Playground projects demonstrating iOS development skills for common job iOS requirements.
+A curated set of Swift Playground projects demonstrating my iOS development skills for common job iOS requirements.
 
 ## Goals
 
@@ -16,7 +16,7 @@ A curated set of Swift Playground projects demonstrating iOS development skills 
 ## 📁 Portfolio
 
 - ✅ `FilterMapReduceSort` - Examples of functional coding on mock data with multiple relationships 
-- ✅ `ProtocolExamples` - 3 simple examples of protocols, generic protocols, advanced protocol usage, associated types and composition.
+- ✅ `ProtocolExamples` - 4 simple examples of protocols, generic protocols, advanced protocol usage
 - `CoreDataCompany` - Basic Core Data modeling and queries - *In progress*
 - ~~Swift concurrency models (GCD + async/await)~~ - *To be done*
 <!--
