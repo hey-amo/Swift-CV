@@ -189,5 +189,5 @@ print ("\n--------------------\n")
 // MARK: Exit playground
 
 //print("\n\n-- Exiting Playground -- ")
-//PlaygroundPage.current.finishExecution()
+PlaygroundPage.current.finishExecution()
 
