@@ -1,11 +1,8 @@
 import Foundation
 import PlaygroundSupport
 
-// Keep playground running for asynchronous operations
-PlaygroundPage.current.needsIndefiniteExecution = true
-
 /**
-# SimpleDispatch
+# SimpleDispatchDemo
  
  A standalone Swift playground project to demonstrate simple examples for:
  
@@ -39,6 +36,10 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 ///
 /// Practically, async is more safer and better suited for most app use cases.
 
+// ---
+
+// Keep playground running for asynchronous operations
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 // Create a DispatchGroup to track all the async work
 let dispatchGroup = DispatchGroup()

@@ -1,4 +1,4 @@
-# CoreDataCompany.md
+# CoreDataDemo.md
 
 A standalone Swift playground project to demonstrate:
 

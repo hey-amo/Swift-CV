@@ -2,7 +2,7 @@ import Foundation
 import PlaygroundSupport
 
 /**
- # Proctocol examples
+ # Proctocol Demo
  
  A standalone Swift playground project to demonstrate basic and advanced protocols
  

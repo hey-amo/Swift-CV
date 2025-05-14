@@ -1,5 +1,5 @@
 /**
- # Filter, Map, Reduce, Sort
+ # Filter, Map, Reduce, Sort Demo
  
  A standalone Swift playground project to demonstrate functional programming using
  - filter, map, reduce, sort
