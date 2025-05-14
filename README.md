@@ -19,14 +19,7 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 
 ### ✅ Completed
 
-- **FilterMapReduceSort** - Demonstrates functional programming techniques with semi-complex relational data 
-
-- **ProtocolExamples** - Showcases 4 practical implementations of protocols, from basic to advanced usage
-
-- **SimpleConcurrency** -  Simple Concurrency demos with dispatch, serial and concurrent queues (GCD)
-
-- **ErrorHandlingDemo** - Error Handling and Result Type - Using do-try-catch blocks, custom errors
-
+List of demos
 
 | Project | Skills | Description |
 |------------------|------------------------|----------------|
@@ -35,16 +28,11 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 | **SimpleConcurrency** | Dispatch, completionBlocks | Simple Concurrency demos with dispatch, serial and concurrent queues |
 | **ErrorHandlingDemo** | Do-try-catch, custom errors, custom error messages | Error Handling and Result Type - Using do-try-catch blocks and custom errors |
 
-
-
-| `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
-
-
 ---
 
 ### 📝 In Progress
 
-- **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
+- **CoreDataCompany** - Core Data, Entity Relationships, CRUD, NSPredicate, Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering.
 
 
 ### 📝 Planned
@@ -62,7 +50,7 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 
 ---
 
-## ⚠️ Known limitations
+### ⚠️ Known limitations
 
 - These projects are designed as **demos**, rather than production use
 - I am not an expert Swift developer; so some best practices may not be followed exactly
@@ -83,7 +71,7 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 3. Run the playground to see the implementation and results
 4. Explore the code comments for detailed explanations of concepts and techniques
 
-# License
+## License
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
