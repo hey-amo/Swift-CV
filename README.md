@@ -24,13 +24,13 @@ List of demos
 | **ProtocolExamples** | Protocols |  Showcases 4 practical implementations of protocols |
 | **SimpleConcurrency** | Dispatch, completionBlocks | Simple Concurrency demos with dispatch, serial and concurrent queues |
 | **ErrorHandlingDemo** | Do-try-catch, custom errors, custom error messages | Error Handling and Result Type - Using do-try-catch blocks and custom errors |
+|*ValueVSRefDemo* | Struct vs Classes | A simple example of when to use structs vs classes |
 
 ---
 
 ### 📝 In Progress
 
 - **CoreDataDemo** - Core Data, Entity Relationships, CRUD, NSPredicate, Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering.
-- ValueVSRefDemo - A simple example of when to use structs vs classes
 
 ---
 
