@@ -8,6 +8,8 @@ import PlaygroundSupport
  
  - Demo #1 - Simple do-try-catch
  - Demo #2 - More complex do-try-catch
+    - Demo #2.1: Handling multiple potential errors
+    - Demo #2.2 Processing array of optional amounts
  - Demo #3 - Result tuple
  
  */
@@ -215,7 +217,7 @@ func processAdvancedTransaction(wallet: inout Wallet, creditAmount: Int?) throws
     }
 }
 
-// MARK: Demo 2.1: Handling multiple potential errors
+// MARK: Demo #2.1: Handling multiple potential errors
 
 var advancedWallet = Wallet(deposit: 200)
 
@@ -247,7 +249,7 @@ do {
     print("Unexpected error: \(error.localizedDescription)")
 }
 
-// MARK: Demo 2.2 Processing array of optional amounts
+// MARK: Demo #2.2 Processing array of optional amounts
 
 let transactionAmounts: [Int?] = [50, nil, -10, 100, 2000, 75]
 
