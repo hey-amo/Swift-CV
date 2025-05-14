@@ -29,15 +29,17 @@ List of demos
 
 ### 📝 In Progress
 
-- **CoreDataCompany** - Core Data, Entity Relationships, CRUD, NSPredicate, Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering.
+- **CoreDataDemo** - Core Data, Entity Relationships, CRUD, NSPredicate, Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering.
+- ValueVSRefDemo - A simple example of when to use structs vs classes
 
 ---
 
 ### 📝 Planned
+
+- MemoryMgtDemo -  Simple Memory Management and ARC (Automatic Reference Counting)
 - Modern async/await implementation 
 - Task management with cancellation handling
-- Memory Management and ARC (Automatic Reference Counting
-- Value types vs References - A simple example of when to use structs vs classes
+- Memory Management and ARC (Automatic Reference Counting)
 - Combine Basics- Simple examples of using reactive programming with Combine
 - Simple MVVM example - Show MVVM pattern, seperation of concerns
 
@@ -77,8 +79,6 @@ List of demos
 ---
 
 ## License
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 See: LICENSE for more information
 
