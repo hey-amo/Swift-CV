@@ -6,11 +6,10 @@ import PlaygroundSupport
  
  A standalone Swift playground demo to demonstrate simple examples for:
  
- - do-try-catch-throw blocks
- - custom error handling
- - returning a result tuple
+ - Demo #1 - Simple do-try-catch
+ - Demo #2 - More complex do-try-catch
+ - Demo #3 - Result tuple
  
- This demo: Adding, subtracting funds from a `Wallet` with custom error handling, throwing, etc
  */
 
 /// Setup custom errors for handling numeric errors
@@ -39,6 +38,7 @@ struct Wallet {
     public var balance: Int {
         get { return self._coins }
     }
+    public var isLocked: Bool = false // used in demo #2
     
     init(deposit amount: Int = 0) {
         print ("Depositing: \(amount) into wallet")
@@ -78,32 +78,148 @@ struct Wallet {
     }
 }
 
-print ("Demo #1 - Do-try-catch block")
+// MARK: - Demo #1 - Simple do-try-catch
+
+
+print ("\nDemo #1 - Do-try-catch block")
 print ("\n--------------------\n")
+
+enum TransactionType {
+    case credit, debit
+}
+
+func performDemo_transaction(transactionType: TransactionType, amount: Int, wallet: Wallet) {
+    var wallet = wallet
+    do {
+        switch transactionType {
+        case .credit:
+            try wallet.credit(amount)
+        case .debit:
+            try wallet.debit(amount)
+        }
+    } catch let err {
+        print ("\n Error -- \(err.localizedDescription)")
+    }
+}
+
+
 
 let deposit: Int = 100
 var wallet = Wallet(deposit: deposit)
 
-do {
-    try wallet.credit(50)  // will succeed
-    try wallet.credit(-100) // will throw
-    try wallet.debit(-50) // will throw
-    try wallet.credit(0) // will throw
-    try wallet.debit(0) // will throw
-    try wallet.debit(25)  // will succeed
-} catch let err {
-    print ("\n Error -- \(err.localizedDescription)")
-}
+performDemo_transaction(transactionType: .credit, amount: 50, wallet: wallet) // will succeed
+performDemo_transaction(transactionType: .credit, amount: -50, wallet: wallet) // will throw
+performDemo_transaction(transactionType: .credit, amount: 0, wallet: wallet) // will throw
+performDemo_transaction(transactionType: .debit, amount: 10, wallet: wallet) // will succeed
+performDemo_transaction(transactionType: .debit, amount: -10, wallet: wallet) // will throw
+performDemo_transaction(transactionType: .debit, amount: -10, wallet: wallet) // will throw
+performDemo_transaction(transactionType: .debit, amount: 0, wallet: wallet) // will throw
 
 print ("\n Balance: \(wallet.balance)")
 
-print ("Demo #2 - More complex do-try-catch block")
+
+
+// MARK: - Demo #2 - More complex do-try-catch
+
+print ("\nDemo #2 - More complex do-try-catch block")
 print ("\n--------------------\n")
 
+/// Extend the wallet to do a more complex demo of do-try-catch
 
-print ("Demo #3 - Use a result tuple")
+enum WalletError: Error {
+    case walletLocked
+    case exceededDailyLimit(limit: Int, attempted: Int)
+    case suspiciousActivity(reason: String)
+    case transactionTimedOut
+}
+
+extension WalletError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .walletLocked: return NSLocalizedString("Wallet is locked", comment: "Wallet error")
+        case .exceededDailyLimit(let limit, let attempted): return NSLocalizedString("Your daily limit of \(limit) is exceeded. Attempted \(attempted)", comment: "Wallet error")
+        case .suspiciousActivity(let reason): return NSLocalizedString("Flagged for suspicious activity: \(reason)", comment: "Wallet error")
+        case .transactionTimedOut: return NSLocalizedString("Transaction timed out", comment: "Wallet error")
+        }
+    }
+}
+
+func processAdvancedTransaction(wallet: inout Wallet, creditAmount: Int?) throws -> Int {
+    guard !wallet.isLocked else {
+        throw WalletError.walletLocked
+    }
+    
+    // Validate the optional parameter amount
+    guard let amount = creditAmount, amount > 0 else {
+       throw NumericErrorDelegate.mustBePositive
+    }
+    
+    return 0
+}
+
+
+
+// MARK: - Demo #3 - Result tuple
+
+print ("\nDemo #3 - Use a result tuple")
 print ("\n--------------------\n")
 
+/// Define a typealias for our result tuple
+typealias TransactionResult = (success: Bool, balance: Int?, error: Error?)
+
+/// Extend the wallet with result tuples
+extension Wallet {
+    mutating func performTransaction(credit amount: Int) -> TransactionResult {
+        do {
+            try self.credit(amount)
+            return (true, self.balance, nil)
+        }
+        catch {
+            return (false, nil, error)
+        }
+    }
+    
+    // Takes an optional amount with smart defaults
+    mutating func performSafeCredit(amount: Int?) -> TransactionResult {
+        let safeAmount = amount ?? 10
+        guard safeAmount > 0 else {
+            return (false, nil, NumericErrorDelegate.mustBePositive)
+        }
+        
+        // process transaction
+        do {
+            try self.credit(safeAmount)
+            return (true, self.balance, nil)
+        } catch {
+            return (false, self.balance, error)
+        }
+    }
+}
+
+var resultWallet = Wallet(deposit: 100)
+
+/// This should succeed
+let result1 = resultWallet.performTransaction(credit: 50)
+
+if result1.success, let balance = result1.balance {
+    print("Transaction successful! New balance: \(balance)")
+} else if let error = result1.error {
+    print("Transaction failed: \(error.localizedDescription)")
+}
+
+/// This should fail
+let result2 = resultWallet.performTransaction(credit: -25)
+if result2.success, let balance = result2.balance {
+    print("Transaction successful! New balance: \(balance)")
+} else if let error = result2.error {
+    print("Transaction failed: \(error.localizedDescription)")
+}
+
+/// Try with nil value, using a default value
+let result3 = resultWallet.performSafeCredit(amount: nil)
+if result3.success {
+    print("Default transaction successful! Balance: \(result3.balance ?? 0)")
+}
 
 print ("\n--------------------\n")
 
