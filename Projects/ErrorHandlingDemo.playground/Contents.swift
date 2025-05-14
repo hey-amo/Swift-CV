@@ -38,7 +38,6 @@ struct Wallet {
     public var balance: Int {
         get { return self._coins }
     }
-    public var isLocked: Bool = false // used in demo #2
     
     init(deposit amount: Int = 0) {
         print ("Depositing: \(amount) into wallet")
@@ -126,6 +125,11 @@ print ("\n--------------------\n")
 
 /// Extend the wallet to do a more complex demo of do-try-catch
 
+extension Wallet {
+    var isLocked: Bool { return false }  // Just for demo purposes
+    var todaysTransactions: Int { return 300 } // Would track a "daily total"
+}
+
 enum WalletError: Error {
     case walletLocked
     case exceededDailyLimit(limit: Int, attempted: Int)
@@ -144,20 +148,138 @@ extension WalletError: LocalizedError {
     }
 }
 
+/// Process multiple transactions with detailed result handling
+func processMultipleTransactions(wallet: inout Wallet, amounts: [Int?]) -> [(amount: Int?, success: Bool, error: Error?)] {
+    var results: [(amount: Int?, success: Bool, error: Error?)] = []
+    
+    for amount in amounts {
+        do {
+            // Skip nil values
+            guard let validAmount = amount else {
+                results.append((amount: nil, success: false, error: NumericErrorDelegate.mustBePositive))
+                continue
+            }
+            
+            // Try to process the transaction
+            try wallet.credit(validAmount)
+            results.append((amount: validAmount, success: true, error: nil))
+        } catch let error {
+            results.append((amount: amount, success: false, error: error))
+        }
+    }
+    
+    return results
+}
+
+/// Enhanced transaction processing with complex error handling
 func processAdvancedTransaction(wallet: inout Wallet, creditAmount: Int?) throws -> Int {
+    // Validate wallet availability
     guard !wallet.isLocked else {
         throw WalletError.walletLocked
     }
     
     // Validate the optional parameter amount
     guard let amount = creditAmount, amount > 0 else {
-       throw NumericErrorDelegate.mustBePositive
+        throw NumericErrorDelegate.mustBePositive
+    }
+        
+    // Check for daily transaction limits
+    let dailyLimit = 1000
+    let currentTotal = wallet.todaysTransactions + amount
+    
+    guard currentTotal <= dailyLimit else {
+        throw WalletError.exceededDailyLimit(limit: dailyLimit, attempted: currentTotal)
     }
     
-    return 0
+    // Flag suspicious large transactions
+    if amount > 500 {
+        throw WalletError.suspiciousActivity(reason: "Transaction exceeds $500")
+    }
+    
+    // Process the actual transaction with potential timeout
+    do {
+        
+        try wallet.credit(amount)
+        return wallet.balance
+        
+    } catch let error as NumericErrorDelegate {
+        
+        print("Numeric error during transaction: \(error.localizedDescription)")
+        throw error
+        
+    } catch {
+        
+        // Convert any unexpected errors to a timeout
+        throw WalletError.transactionTimedOut
+        
+    }
 }
 
+// MARK: Demo 2.1: Handling multiple potential errors
 
+var advancedWallet = Wallet(deposit: 200)
+
+do {
+    // Multiple places where this can fail, with different error types
+    let newBalance = try processAdvancedTransaction(wallet: &advancedWallet, creditAmount: 450)
+    print("Transaction was successful! The new balance is: \(newBalance)")
+    
+} catch WalletError.walletLocked {
+    print("Issue: Wallet is locked")
+    
+} catch WalletError.exceededDailyLimit(let limit, let attempted) {
+    
+    print("Issue: Daily limit of \(limit) would be exceeded (attempted total: \(attempted))")
+    
+    // Suggest a valid transaction amount instead
+    let suggestedAmount = limit - advancedWallet.todaysTransactions
+    if suggestedAmount > 0 {
+        print("You can still process \(suggestedAmount) today")
+    }
+    
+} catch WalletError.suspiciousActivity(let reason) {
+    print("Transaction was flagged: \(reason)")
+    
+} catch let error as NumericErrorDelegate {
+    print("Invalid amount: \(error.localizedDescription)")
+    
+} catch {
+    print("Unexpected error: \(error.localizedDescription)")
+}
+
+// MARK: Demo 2.2 Processing array of optional amounts
+
+let transactionAmounts: [Int?] = [50, nil, -10, 100, 2000, 75]
+
+let results = processMultipleTransactions(wallet: &advancedWallet, amounts: transactionAmounts)
+
+// Process results with optional binding and pattern matching
+print("\nTransaction Results:")
+for (index, result) in results.enumerated() {
+    let amountText = result.amount != nil ? "\(result.amount!)" : "nil"
+    
+    if result.success {
+        print("Transaction \(index + 1) (\(amountText)): Success")
+        
+    } else if let error = result.error {
+        
+        switch error {
+        case NumericErrorDelegate.mustBePositive:
+            print("Transaction \(index + 1) (\(amountText)): Failed - Amount must be positive")
+        
+        case let walletError as WalletError:
+            print("Transaction \(index + 1) (\(amountText)): Failed - \(walletError.localizedDescription)")
+        
+        default:
+            print("Transaction \(index + 1) (\(amountText)): Failed - Unknown error")
+        }
+    }
+}
+
+print("\n--------------------\n")
+print("  > Demo #2 - Final wallet balance: \(advancedWallet.balance)")
+
+print("\n--------------------\n")
 
 // MARK: - Demo #3 - Result tuple
 
