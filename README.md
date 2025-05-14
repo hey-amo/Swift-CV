@@ -1,27 +1,38 @@
 # Swift.cv
 
-A curation of demos showcasing common Swift programming concepts to demonstrate my iOS development understanding.
+@author: github.com/heyamo/
 
----
 
 ## 🎯 Purpose
 
-These are *standalone* swift playground to showcase core Swift/iOS development concepts.
+These are *standalone* swift playground to showcase my general understanding of core Swift/iOS development concepts for job roles.
+
+---
+
+## Why does this exist?
+
+I really wanted a way to showcase my learning, understanding of Swift in 1 repo; with core examples of standalone Swift projects for job role applications.
 
 ---
 
 ## 📂 Portfolio
 
 ### ✅ Completed
-- **FilterMapReduceSort** - Demonstrates functional programming techniques with complex relational data 
+
+- **FilterMapReduceSort** - Demonstrates functional programming techniques with semi-complex relational data 
+
 - **ProtocolExamples** - Showcases 4 practical implementations of protocols, from basic to advanced usage
+
 - **SimpleConcurrency** -  Simple Concurrency demos with dispatch, serial and concurrent queues (GCD)
+
+- **ErrorHandlingDemo** - Error Handling and Result Type - Using do-try-catch blocks, custom errors
+
 
 ---
 
 ### 📝 In Progress
+
 - **CoreDataCompany** - Core Data modelling and query implementation with relationship handling
-- **ErrorHandlingDemo** - Error Handling and Result Type - Using do-try-catch blocks, custom errors
 
 
 ### 📝 Planned
@@ -41,12 +52,11 @@ These are *standalone* swift playground to showcase core Swift/iOS development c
 
 ## ⚠️ Known limitations
 
-- These projects are designed for **demos** rather than production use
+- These projects are designed as **demos**, rather than production use
 - I am not an expert Swift developer; so some best practices may not be followed exactly
-- They might seem a bit rudimentary
-- Each project tries to focuses on concepts, rather than production-ready implementation.
+- They might seem a bit rudimentary to outside observers.
 
-### Technical limitations
+### ⚠️ Technical limitations
 
 - Swift Playgrounds have certain limitations:
 - Persistent storage might be restricted, or don't work correctly.
@@ -60,6 +70,12 @@ These are *standalone* swift playground to showcase core Swift/iOS development c
 2. Open the desired `.playground` file in Xcode
 3. Run the playground to see the implementation and results
 4. Explore the code comments for detailed explanations of concepts and techniques
+
+# Notice
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+See: LICENSE
 
 
 
