@@ -5,79 +5,92 @@ import PlaygroundSupport
 # ValueVSRefDemo
  
  A standalone Swift playground project to demonstrate simple examples for:
-  - structs verses classes
- 
+  
+ - structs verses classes
+
+ Structs are value types
+ Classes are reference types
  */
 
-/// This is a value type
-struct EmployeeAsStruct: Identifiable, Hashable, Equatable {
-    let id: UUID = UUID()
+struct EmployeeStruct: CustomStringConvertible {
     var name: String
     var salary: Double
+    var description: String { "name: \(name), salary: \(salary)" }
 }
 
-extension EmployeeAsStruct : CustomStringConvertible {
-    var description: String {
-        return " id: \(id), name: \(name), $\(salary)"
-    }
-}
-
-/// This is a reference type
-class EmployeeAsClass: Identifiable, Hashable, Equatable {
-    let id: UUID = UUID()
+struct EmployeeClass: CustomStringConvertible {
     var name: String
     var salary: Double
-    
     init(name: String, salary: Double) {
         self.name = name
         self.salary = salary
     }
-    
-    // Hashable conformance
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    // Equatable conformaance
-    static func == (lhs: EmployeeAsClass, rhs: EmployeeAsClass) -> Bool {
-        return (lhs.id == rhs.id)
+    var description: String { "name: \(name), salary: \(salary)" }
+}
+
+
+// Struct behaviour
+print("# Demo 1 - Struct (Value Type)\n")
+
+var originalStruct = EmployeeStruct(name: "Alice", salary: 100_000)
+var copiedStruct = originalStruct
+copiedStruct.salary = 50_000
+
+/// The copied struct shows a different value to the original
+print("Original Struct: \(originalStruct)")
+print("Copied Struct:   \(copiedStruct)") // this shows different values
+
+print("\n--------------------\n")
+
+// Class behaviour
+print("# Demo 2 - Class (Reference Type)\n")
+
+var originalClass = EmployeeClass(name: "Bob", salary: 100_000)
+var copiedClass = originalClass
+copiedClass.salary = 50_000
+
+/// The copied class affects both
+print("Original Class: \(originalClass)")
+print("Copied Class:   \(copiedClass)") // both have changed
+
+print("\n--------------------\n")
+
+// Parent-child relationship
+print("# Demo 3 - Parent-child\n")
+
+struct CompanyUsingStructs {
+    var employees: [EmployeeStruct]
+}
+
+class CompanyUsingClasses {
+    var employees: [EmployeeClass]
+    init(employees: [EmployeeClass]) {
+        self.employees = employees
     }
 }
 
-extension EmployeeAsClass : CustomStringConvertible {
-    var description: String {
-        return " id: \(id), name: \(name), $\(salary)"
-    }
-}
+/// the original struct will be unaffected because its a value
+var structCompany = CompanyUsingStructs(employees: [EmployeeStruct(name: "Carol", salary: 100_000)])
+var copiedStructCompany = structCompany
+copiedStructCompany.employees[0].salary = 70_000
 
-/// A value type means that each time we manipulate it, we create a new version
-/// A value type is for records, one-offs, things that don't have behaviour
-///
-/// A class means that if we manipulate it somewhere else, we update the original version.
-/// A class is for objects, where we expect behaviour, or want one update to maintain
-/// This is especially true if we have parent objects that update child objects
-
-var emp1 = EmployeeAsStruct(name: "Alex", salary: Double(120_000))
-
-print ("# Demo #1 - Simple Struct example (value type)\n")
-
-print ( "employee -- \(emp1)\n")
-emp1.salary = Double(60_000)
-print ( "employee -- \(emp1)\n")
+print("Original Struct Company: \(structCompany.employees[0])")
+print("Copied Struct Company:   \(copiedStructCompany.employees[0])")
 
 print ("\n--------------------\n")
 
+/// the class will afffect the original because its a reference
+let classEmployee = EmployeeClass(name: "Dan", salary: 100_000)
+let classCompany = CompanyUsingClasses(employees: [classEmployee])
+let copiedClassCompany = classCompany
+copiedClassCompany.employees[0].salary = 70_000
 
-print ("# Demo #2 - Simple Class example (reference type)\n")
-
-var emp2 = EmployeeAsClass(name: "Sarah", salary: Double(120_000))
-print ( "employee -- \(emp2)\n")
-emp2.salary = Double(45_000)
-print ( "employee -- \(emp2)\n")
+print("Original Class Company: \(classCompany.employees[0])")
+print("Copied Class Company:   \(copiedClassCompany.employees[0])") // original affected
 
 print ("\n--------------------\n")
 
- print("\n\n-- Exiting Playground -- ")
- PlaygroundPage.current.finishExecution()
+print("\n\n-- Exiting Playground -- ")
+PlaygroundPage.current.finishExecution()
 
 

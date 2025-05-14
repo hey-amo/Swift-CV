@@ -41,7 +41,8 @@ List of demos
 - Task management with cancellation handling
 - Memory Management and ARC (Automatic Reference Counting)
 - Combine Basics- Simple examples of using reactive programming with Combine
-- Simple MVVM example - Show MVVM pattern, seperation of concerns
+- Simple MVVM example - Show MVVM pattern, separation of concerns
+- TCA, reactive programming - The Composable Architecture and reactive patterns
 
 <!--
 ~~- **Unit Testing** - XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols.~~
