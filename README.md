@@ -2,7 +2,7 @@
 
 ## 🎯 Purpose
 
-These are *standalone* swift playground to showcase my general understanding of core Swift/iOS development concepts for job roles.
+These are *standalone* demos to showcase my general understanding of core Swift/iOS development concepts for job roles.
 
 ---
 
@@ -31,26 +31,32 @@ List of demos
 
 - **CoreDataCompany** - Core Data, Entity Relationships, CRUD, NSPredicate, Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering.
 
+---
 
 ### 📝 Planned
+- Modern async/await implementation 
+- Task management with cancellation handling
 - Memory Management and ARC (Automatic Reference Counting
 - Value types vs References - A simple example of when to use structs vs classes
 - Combine Basics- Simple examples of using reactive programming with Combine
+- Simple MVVM example - Show MVVM pattern, seperation of concerns
 
 <!--
-~~- 📝 **Unit Testing** - Test-driven development with protocol-based mocks~~
-~~- 📝 **REST API Integration** - Network layer implementation with mock responses~~
-~~📝 **UIKit & Foundation** - Essential framework usage and patterns~~
-~~📝 **SOLID Principles** - Practical application of software design principles~~
-~~📝 **TCA & Reactive Programming** - The Composable Architecture and reactive patterns~~
+~~- **Unit Testing** - XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols.~~
+~~- **REST API Integration** - Network layer implementation with mock responses~~
+~~ **UIKit & Foundation** - Essential framework usage and patterns~~
+~~ **SOLID Principles** - Practical application of software design principles~~
+~~ **TCA & Reactive Programming** - The Composable Architecture and reactive patterns~~
+| `EnumDrivenState.playground` | Enums, State Management, Pattern Matching | Illustrates using enums to manage app state, a common approach in SwiftUI and MVVM projects. |
+| `AsyncConcurrency.playground` | GCD, async/await, MainActor | Realistic examples of data fetching and updating using both legacy concurrency and Swift’s structured concurrency. |
 -->
 
 ---
 
 ### ⚠️ Known limitations
 
-- These projects are designed as **demos**, rather than production use
-- I am not an expert Swift developer; so some best practices may not be followed exactly
+- These projects are designed as **demos**, rather than production use.
+- Some best practices may not be followed exactly.
 - They might seem a bit rudimentary to outside observers.
 
 ### ⚠️ Technical limitations
@@ -68,6 +74,8 @@ List of demos
 3. Run the playground to see the implementation and results
 4. Explore the code comments for detailed explanations of concepts and techniques
 
+---
+
 ## License
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -75,16 +83,3 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 See: LICENSE for more information
 
 
-
-
-<!--
-| Project | Skills | Description |
-|------------------|------------------------|----------------|
-| `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
-| `EnumDrivenState.playground` | Enums, State Management, Pattern Matching | Illustrates using enums to manage app state, a common approach in SwiftUI and MVVM projects. |
-| `AsyncConcurrency.playground` | GCD, async/await, MainActor | Realistic examples of data fetching and updating using both legacy concurrency and Swift’s structured concurrency. |
-| `CombineBasics.playground` | Combine, Publishers, Reactive Programming | Demonstrates basic Combine, `PassthroughSubject`, debouncing, filtering, and more. |
-| `MVVMMock.playground` | SwiftUI, MVVM, Dependency Injection | Mini demo with testable ViewModels and MVVM separation of concerns using SwiftUI. |
-| `UnitTestingSwift.playground` | XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols. |
-| `Protocols.playground` | Protocols |Examples of basic and advanced protocol programming.|
--->
