@@ -16,43 +16,43 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 
 ### ✅ Completed
 
-List of demos
+### Demos
 
+| Project                 | Skills Covered                              | Description                                                                 |
+| ----------------------- | ------------------------------------------- | --------------------------------------------------------------------------- |
+| **FilterMapReduceSort** | Filter, Map, Reduce, Sort                   | Demonstrates functional programming with moderately complex relational data |
+| **ProtocolExamples**    | Protocols                                   | Practical examples of four common protocol use cases                        |
+| **SimpleConcurrency**   | Dispatch Queues, Completion Blocks          | Illustrates basic concurrency using serial and concurrent queues            |
+| **ErrorHandlingDemo**   | `do`-`try`-`catch`, Custom Errors, `Result` | Covers Swift error handling with custom error types and detailed messages   |
+| **ValueVSRefDemo**      | Structs vs Classes                          | Highlights the difference between value and reference types                 |
+
+
+<!--
 | Project | Skills | Description |
 |------------------|------------------------|----------------|
 | **FilterMapReduceSort** | Filter, Map, Reduce, Sort | Demonstrates functional programming techniques with semi-complex relational data |
 | **ProtocolExamples** | Protocols |  Showcases 4 practical implementations of protocols |
 | **SimpleConcurrency** | Dispatch, completionBlocks | Simple Concurrency demos with dispatch, serial and concurrent queues |
 | **ErrorHandlingDemo** | Do-try-catch, custom errors, custom error messages | Error Handling and Result Type - Using do-try-catch blocks and custom errors |
-|*ValueVSRefDemo* | Struct vs Classes | A simple example of when to use structs vs classes |
+|**ValueVSRefDemo** | Struct vs Classes | A simple example of when to use structs vs classes |
+-->
 
 ---
 
 ### 📝 In Progress
 
-- **CoreDataDemo** - Core Data, Entity Relationships, CRUD, NSPredicate, Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering.
+- **CoreDataBasics**, Core Data, Persistence, Simple example of storing, fetching, and updating entities using Core Data
 
 ---
 
 ### 📝 Planned
 
-- MemoryMgtDemo -  Simple Memory Management and ARC (Automatic Reference Counting)
-- Modern async/await implementation 
-- Task management with cancellation handling
-- Memory Management and ARC (Automatic Reference Counting)
-- Combine Basics- Simple examples of using reactive programming with Combine
-- Simple MVVM example - Show MVVM pattern, separation of concerns
-- TCA, reactive programming - The Composable Architecture and reactive patterns
-
-<!--
-~~- **Unit Testing** - XCTest, Mocks, Dependency Injection | Contains unit test examples for services and view models, showing dependency injection and mocking with protocols.~~
-~~- **REST API Integration** - Network layer implementation with mock responses~~
-~~ **UIKit & Foundation** - Essential framework usage and patterns~~
-~~ **SOLID Principles** - Practical application of software design principles~~
-~~ **TCA & Reactive Programming** - The Composable Architecture and reactive patterns~~
-| `EnumDrivenState.playground` | Enums, State Management, Pattern Matching | Illustrates using enums to manage app state, a common approach in SwiftUI and MVVM projects. |
-| `AsyncConcurrency.playground` | GCD, async/await, MainActor | Realistic examples of data fetching and updating using both legacy concurrency and Swift’s structured concurrency. |
--->
+| Planned       | Skills Covered                          | Description                                                                |
+| ----------------------- | --------------------------------------- | -------------------------------------------------------------------------- |
+| **AsyncAwaitDemo**      | `async`/`await`, Structured Concurrency | Show how to handle asynchronous code      |
+| **CombineInPractice**   | Combine, Publishers/Subscribers         | Reactive programming demo with Combine using `@Published` and `sink`       |
+| **TCABasics**           | TCA (The Composable Architecture)       | Basic TCA pattern with a simple counter        |
+| **DependencyInjection** | Protocols, Inversion of Control         | Demonstrates clean architecture using dependency injection in Swift        |
 
 ---
 
