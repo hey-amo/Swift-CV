@@ -1,6 +1,6 @@
 # Swift.cv
 
-@author: github.com/heyamo/
+@author: github.com/hey-amo/
 
 
 ## 🎯 Purpose
@@ -30,6 +30,13 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 
 | Project | Skills | Description |
 |------------------|------------------------|----------------|
+| **FilterMapReduceSort** | Filter, Map, Reduce, Sort | Demonstrates functional programming techniques with semi-complex relational data |
+| **ProtocolExamples** | Protocols |  Showcases 4 practical implementations of protocols |
+| **SimpleConcurrency** | Dispatch, completionBlocks | Simple Concurrency demos with dispatch, serial and concurrent queues |
+| **ErrorHandlingDemo** | Do-try-catch, custom errors, custom error messages | Error Handling and Result Type - Using do-try-catch blocks and custom errors |
+
+
+
 | `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
 
 
