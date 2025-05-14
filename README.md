@@ -28,6 +28,11 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 - **ErrorHandlingDemo** - Error Handling and Result Type - Using do-try-catch blocks, custom errors
 
 
+| Project | Skills | Description |
+|------------------|------------------------|----------------|
+| `CoreDataCompany.playground` | Core Data, Entity Relationships, CRUD, NSPredicate | Demonstrates semi-complex one-to-many and many-to-one Core Data relationships, including search and filtering. |
+
+
 ---
 
 ### 📝 In Progress
@@ -71,11 +76,11 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 3. Run the playground to see the implementation and results
 4. Explore the code comments for detailed explanations of concepts and techniques
 
-# Notice
+# License
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
-See: LICENSE
+See: LICENSE for more information
 
 
 
