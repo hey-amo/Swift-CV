@@ -1,8 +1,5 @@
 # Swift.cv
 
-@author: github.com/hey-amo/
-
-
 ## 🎯 Purpose
 
 These are *standalone* swift playground to showcase my general understanding of core Swift/iOS development concepts for job roles.
