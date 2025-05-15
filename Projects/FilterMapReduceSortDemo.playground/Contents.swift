@@ -155,7 +155,7 @@ let departments = [
 company.departments = departments
 
 /// Make a dictionary mapping a department to its name
-let departmentByName = Dictionary(uniqueKeysWithValues: departments.map { ($0.name, $0) })
+let departmentByName: [String : Department] = Dictionary(uniqueKeysWithValues: departments.map { ($0.name, $0) })
 
 /// Create employees
 let employees = [

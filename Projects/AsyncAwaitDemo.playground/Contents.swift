@@ -6,13 +6,25 @@ import PlaygroundSupport
  
  A simple example of using Async, Await, Task
  
- Async, await makes it easier to write asyncronous code
+ Async, await makes it easier to write asynchronous code
 
  - Async requires the usage of await when called
  - Use Task { ... } to run async code
  
- Note on Sendable - The warning about @unchecked Sendable arises because Swift enforces stricter checks for thread safety in concurrent programming.
+ ## Notes on Sendable
  
+### What is Sendable in Swift?
+Sendable is a protocol introduced in Swift to indicate that a type can be safely sent across actor boundaries in concurrent programming. It is essential for maintaining data integrity in a multi-threaded environment.
+
+### What does @unchecked Sendable mean?
+Using @unchecked Sendable means the developer guarantees the type's thread safety without the compiler's verification. This should be used with caution as it bypasses some safety checks provided by Swift.
+
+The warning about @unchecked Sendable arises because Swift enforces stricter checks for thread safety in concurrent programming.
+
+It's not advisable to ignore this warning, as doing so could lead to data races or crashes in concurrent environments. Always strive for thread-safe code and address compiler warnings accordingly.
+
+
+
   The data is from MockData.md
  
  //   Demo #1 - Simple awaiting with blocking
