@@ -10,6 +10,8 @@ These are *standalone* demos to showcase my general understanding of core Swift/
 
 I really wanted a way to showcase my learning, understanding of Swift in 1 repo; with core examples of standalone Swift projects for job role applications.
 
+The demos all output to the console log.  Demos that use a user interface (UI) will be noted.
+
 ---
 
 ## 📂 Portfolio
@@ -27,21 +29,13 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 | **ValueVSRefDemo**      | Structs vs Classes                          | Highlights the difference between value and reference types                 |
 
 
-<!--
-| Project | Skills | Description |
-|------------------|------------------------|----------------|
-| **FilterMapReduceSort** | Filter, Map, Reduce, Sort | Demonstrates functional programming techniques with semi-complex relational data |
-| **ProtocolExamples** | Protocols |  Showcases 4 practical implementations of protocols |
-| **SimpleConcurrency** | Dispatch, completionBlocks | Simple Concurrency demos with dispatch, serial and concurrent queues |
-| **ErrorHandlingDemo** | Do-try-catch, custom errors, custom error messages | Error Handling and Result Type - Using do-try-catch blocks and custom errors |
-|**ValueVSRefDemo** | Struct vs Classes | A simple example of when to use structs vs classes |
--->
-
 ---
 
 ### 📝 In Progress
 
-- **CoreDataBasics**, Core Data, Persistence, Simple example of storing, fetching, and updating entities using Core Data
+
+- **AsyncAwaitDemo**, `async`/`await`, Structured Concurrency | Show how to handle asynchronous code
+- **CoreDataBasics**, Core Data, Simple example of storing, fetching, and updating entities using Core Data
 
 ---
 
@@ -49,7 +43,6 @@ I really wanted a way to showcase my learning, understanding of Swift in 1 repo;
 
 | Planned       | Skills Covered                          | Description                                                                |
 | ----------------------- | --------------------------------------- | -------------------------------------------------------------------------- |
-| **AsyncAwaitDemo**      | `async`/`await`, Structured Concurrency | Show how to handle asynchronous code      |
 | **CombineInPractice**   | Combine, Publishers/Subscribers         | Reactive programming demo with Combine using `@Published` and `sink`       |
 | **TCABasics**           | TCA (The Composable Architecture)       | Basic TCA pattern with a simple counter        |
 | **DependencyInjection** | Protocols, Inversion of Control         | Demonstrates clean architecture using dependency injection in Swift        |
