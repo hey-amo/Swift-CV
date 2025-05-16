@@ -2,15 +2,13 @@
 
 ## 🎯 Purpose
 
-These are *standalone* demos to showcase my general understanding of core Swift/iOS development concepts for job roles.
+A collection of standalone demos in Swift on Github for prospective employers, recruiters, start-ups that might be hiring.
 
 ---
 
 ## Why does this exist?
 
-I really wanted a way to showcase my learning, understanding of Swift in 1 repo; with core examples of standalone Swift projects for job role applications.
-
-The demos all output to the console log.  Demos that use a user interface (UI) will be noted.
+With the help of AI tools, I'm coaching myself to relearn core concepts of Swift; and to create simple demo examples.
 
 ---
 
