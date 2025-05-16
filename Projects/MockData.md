@@ -1,5 +1,7 @@
 # Mock data 
 
+This is a simplified mock data used in some of the demos.
+
  ### Relationships:
 
  - A `Company` has many `Departments`
