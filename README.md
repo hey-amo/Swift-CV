@@ -12,20 +12,13 @@ Each project demonstrates specific technical competencies through code examples,
 
 ---
 
-## Core Swift Proficiency
+## Summary
 
 - Functional Programming - map, filter, reduce, sorted operations
 - Protocol-Oriented Programming - practical protocol implementations
 - Error Handling - comprehensive error management patterns
 - Value vs Reference Types - memory management understanding
 - Concurrency - simple, modern async/await with traditional queue management
-
-## iOS Development Patterns
-
-- Core Data Integration - data persistence and relationship management
-- Reactive Programming - Combine framework implementation
-<!-- Architecture Patterns - MVVM, TCA, and dependency injection -->
-- Asynchronous programming - structured concurrency with simple demo of async/await
 
 ---
 
@@ -40,6 +33,7 @@ Each project demonstrates specific technical competencies through code examples,
 | **[SimpleConcurrency](./Projects/SimpleConcurrency.playground)** | Queue management & threading and processing |
 | **[ErrorHandlingDemo](./Projects/ErrorHandlingDemo.playground)** | Robust error management | Error handling for production apps |
 | **[ValueVSRefDemo](./Projects/ValueVSRefDemo.playground)** | Memory management principles | Performance optimization and bug prevention |
+| **[SQLite demos](./Projects/SQLite/)** | Simple SQLite demos |  with join examples | 
 
 ---
 
@@ -86,7 +80,7 @@ Each project demonstrates specific technical competencies through code examples,
 
 **I am actively looking for new iOS development opportunities** - junior to mid-level positions in startups, agencies, or established tech teams. Ideally, in the UK.
 
-**Technical Interview Ready:** Can walk through any code example and explain implementation decisions, trade-offs, and potential improvements.
+**Technical Interview Ready:** Can walk through any code example and explain implementation decisions and potential improvements.
 
 View my complete professional profile: (TBC)
 or send me a DM message via social media.
@@ -95,4 +89,4 @@ or send me a DM message via social media.
 
 ---
 
-*Last Updated: May 22, 2025 • Swift 5+ • iOS 16+ Compatible*
+*Last Updated: May 28, 2025 • Swift 5+ • iOS 16+ Compatible*
