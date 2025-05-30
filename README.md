@@ -12,16 +12,6 @@ Each project demonstrates specific technical competencies through code examples,
 
 ---
 
-## Summary
-
-- Functional Programming - map, filter, reduce, sorted operations
-- Protocol-Oriented Programming - practical protocol implementations
-- Error Handling - comprehensive error management patterns
-- Value vs Reference Types - memory management understanding
-- Concurrency - simple, modern async/await with traditional queue management
-
----
-
 ## 📂 Portfolio
 
 ### Demos
@@ -33,20 +23,22 @@ Each project demonstrates specific technical competencies through code examples,
 | **[SimpleConcurrency](./Projects/SimpleConcurrency.playground)** | Queue management & threading and processing |
 | **[ErrorHandlingDemo](./Projects/ErrorHandlingDemo.playground)** | Robust error management | Error handling for production apps |
 | **[ValueVSRefDemo](./Projects/ValueVSRefDemo.playground)** | Memory management principles | Performance optimization and bug prevention |
-| **[SQLite demos](./Projects/SQLite/)** | Simple SQLite demos |  with join examples | 
+| **[SQLite demos](./Projects/SQLite/)** | Simple SQLite demos | SQLite demos with various join examples | 
+| **[CoreDataBasics](./Projects/CoreDataDemo.playground/)** | Core data basics | Local data persistence with 9 demos |
+
 
 ---
 
 ### 🚧 In Progress
 
-- **AsyncAwaitDemo** - Modern concurrency patterns with structured async/await
-- **CoreDataBasics** - Local data persistence with entity relationships
+
 
 ### 📋 **Planned**
 
 - **CombineInPractice** - Reactive programming with publishers and subscribers  
 - **TCABasics** - The Composable Architecture pattern implementation
 - **DependencyInjection** - Clean architecture with inversion of control
+- **AsyncAwaitDemo** - Modern concurrency patterns with structured async/await
 
 ---
 
@@ -89,4 +81,4 @@ or send me a DM message via social media.
 
 ---
 
-*Last Updated: May 28, 2025 • Swift 5+ • iOS 16+ Compatible*
+*Last Updated: May 30, 2025 • Swift 5+ • iOS 16+ Compatible*
