@@ -4,8 +4,7 @@
  A standalone Swift playground project to demonstrate:
 
  - Simple Core data functionality
- - Entity modeling with multiple relationships
- - One-to-many and one-to-many-through patterns
+ - Entity modeling with multiple relationships 
  - CRUD operations
  - Search/filtering (with NSPredicate)
 
