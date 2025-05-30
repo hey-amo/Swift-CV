@@ -11,23 +11,22 @@
 
  Data: CoreDataDemo-notes.md
 
- ### Features
+ ### Demos
  
  - Show me:
-    - [F01] All employees grouped by department
-    - [F02] Total sales per employee
-    - [F03] The top salesperson per department
-    - [F04] Employees with no sales
-    - [F05] Departments with the most employees
-    - [F06] Top 3 sales by amount (across all employees)
+    - [Demo-01] All employees grouped by department
+    - [Demo-02] Total sales per employee
+    - [Demo-03] The top salesperson per department
+    - [Demo-04] Employees with no sales
+    - [Demo-05] Departments with the most employees
+    - [Demo-06] Top 3 sales by amount (across all employees)
 
  - CRUD:
-    - [F07] Add 1 new employee to an existing department
-    - [F08] Add 1 new department `Marketing`
-    - [F09] Move 1 employee to `Marketing`
-    - [F10] Delete 1 employee from `Sales`
-    - [F11] Delete all employees in `Human Resources`
-    - [F12] Find employee matching a name
+    - [Demo-07] Add 1 new employee to an existing department
+    - [Demo-08] Add 1 new department `Marketing`
+    - [Demo-09] Move 1 employee to `Marketing`
+    - [Demo-10] Delete 1 employee from `Sales`
+    - [Demo-11] Delete all employees in `Human Resources`
 */
 
 import Foundation
@@ -35,7 +34,6 @@ import CoreData
 import PlaygroundSupport
 
 PlaygroundPage.current.needsIndefiniteExecution = true
-
 
 // ---
 
@@ -62,16 +60,16 @@ func makeInMemoryContainer(model: NSManagedObjectModel) -> NSPersistentContainer
 }
 
 
-// MARK: Create the basic core data models
+// MARK: Create the basic core data model
 
-func createCoreDataModels() -> NSManagedObjectModel {
+func createCoreDataModel() -> NSManagedObjectModel {
     let model = NSManagedObjectModel()
     
     // # Entities
     
     /// Company entity
     let company = NSEntityDescription()
-    company.name = "Company Ltd"
+    company.name = "Company"  // Fixed: was "Company Ltd"
     company.managedObjectClassName = "Company"
     company.properties = [
        NSAttributeDescription.make(name: "name", type: .stringAttributeType)
@@ -89,7 +87,7 @@ func createCoreDataModels() -> NSManagedObjectModel {
     let employee = NSEntityDescription()
     employee.name = "Employee"
     employee.managedObjectClassName = "Employee"
-    department.properties = [
+    employee.properties = [  // Fixed: was using department.properties
         NSAttributeDescription.make(name: "name", type: .stringAttributeType),
         NSAttributeDescription.make(name: "role", type: .stringAttributeType)
     ]
@@ -103,36 +101,75 @@ func createCoreDataModels() -> NSManagedObjectModel {
         NSAttributeDescription.make(name: "date", type: .dateAttributeType)
     ]
     
-    // --
+    // # Relationships - Create them separately first, then set up inverses
     
-    // # Relationships
+    /// Company -> Departments (one-to-many)
+    let companyToDepartments = NSRelationshipDescription()
+    companyToDepartments.name = "departments"
+    companyToDepartments.destinationEntity = department
+    companyToDepartments.minCount = 0
+    companyToDepartments.maxCount = 0  // 0 means unlimited (to-many)
+    companyToDepartments.deleteRule = .nullifyDeleteRule
+    companyToDepartments.isOptional = true
     
-    /// A `company` has many `departments`
-    let companyToDepartments = NSRelationshipDescription.make(name: "departments", destination: department, toMany: true, inverseName: "company")
+    let departmentToCompany = NSRelationshipDescription()
+    departmentToCompany.name = "company"
+    departmentToCompany.destinationEntity = company
+    departmentToCompany.minCount = 0
+    departmentToCompany.maxCount = 1  // to-one
+    departmentToCompany.deleteRule = .nullifyDeleteRule
+    departmentToCompany.isOptional = true
     
-    /// Each `department` belongs to one `company`
-    let departmentToCompany = NSRelationshipDescription.make(name: "company", destination: company, toMany: false, inverseName: "departments")
+    // Set up inverse relationships
+    companyToDepartments.inverseRelationship = departmentToCompany
+    departmentToCompany.inverseRelationship = companyToDepartments
 
-    /// A `department` has many `employees`
-    let departmentToEmployees = NSRelationshipDescription.make(name: "employees", destination: employee, toMany: true, inverseName: "department")
+    /// Department -> Employees (one-to-many)
+    let departmentToEmployees = NSRelationshipDescription()
+    departmentToEmployees.name = "employees"
+    departmentToEmployees.destinationEntity = employee
+    departmentToEmployees.minCount = 0
+    departmentToEmployees.maxCount = 0  // to-many
+    departmentToEmployees.deleteRule = .nullifyDeleteRule
+    departmentToEmployees.isOptional = true
     
-    /// An `employee` belongs to one `department`
-    let employeeToDepartment = NSRelationshipDescription.make(name: "department", destination: department, toMany: false, inverseName: "employees")
-
-    /// Each `employee` has many `sales`
-    let employeeToSales = NSRelationshipDescription.make(name: "sales", destination: sale, toMany: true, inverseName: "employee")
+    let employeeToDepartment = NSRelationshipDescription()
+    employeeToDepartment.name = "department"
+    employeeToDepartment.destinationEntity = department
+    employeeToDepartment.minCount = 0
+    employeeToDepartment.maxCount = 1  // to-one
+    employeeToDepartment.deleteRule = .nullifyDeleteRule
+    employeeToDepartment.isOptional = true
     
-    /// Each `sale` belongs to one (a single) `employee`
-    let saleToEmployee = NSRelationshipDescription.make(name: "employee", destination: employee, toMany: false, inverseName: "sales")
+    // Set up inverse relationships
+    departmentToEmployees.inverseRelationship = employeeToDepartment
+    employeeToDepartment.inverseRelationship = departmentToEmployees
 
-    /// Add the relationships
+    /// Employee -> Sales (one-to-many)
+    let employeeToSales = NSRelationshipDescription()
+    employeeToSales.name = "sales"
+    employeeToSales.destinationEntity = sale
+    employeeToSales.minCount = 0
+    employeeToSales.maxCount = 0  // to-many
+    employeeToSales.deleteRule = .nullifyDeleteRule
+    employeeToSales.isOptional = true
+    
+    let saleToEmployee = NSRelationshipDescription()
+    saleToEmployee.name = "employee"
+    saleToEmployee.destinationEntity = employee
+    saleToEmployee.minCount = 0
+    saleToEmployee.maxCount = 1  // to-one
+    saleToEmployee.deleteRule = .nullifyDeleteRule
+    saleToEmployee.isOptional = true
+    
+    // Set up inverse relationships
+    employeeToSales.inverseRelationship = saleToEmployee
+    saleToEmployee.inverseRelationship = employeeToSales
+
+    /// Add the relationships to entities
     company.properties.append(companyToDepartments)
-    department.properties.append(departmentToCompany)
-
-    department.properties.append(departmentToEmployees)
-    employee.properties.append(employeeToDepartment)
-
-    employee.properties.append(employeeToSales)
+    department.properties.append(contentsOf: [departmentToCompany, departmentToEmployees])
+    employee.properties.append(contentsOf: [employeeToDepartment, employeeToSales])
     sale.properties.append(saleToEmployee)
     
     model.entities = [company, department, employee, sale]
@@ -219,11 +256,14 @@ func createCompanyData(context: NSManagedObjectContext) {
     }
 }
 
-// MARK: [Features]
 
-// MARK: [F01] - All employees grouped by department
+// MARK: [Demos]
+
+// MARK: [Demo-01] - All employees grouped by department
 
 func showAllEmployeesByDepartment(context: NSManagedObjectContext) {
+    print("\n=== [Demo-01] All employees grouped by department ===")
+    
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Department")
 
     do {
@@ -233,48 +273,34 @@ func showAllEmployeesByDepartment(context: NSManagedObjectContext) {
             let deptName = dept.value(forKey: "name") as? String ?? "Unknown"
             print ("Department: \(deptName)")
             
-            /// List matched employees for department
-            
-//            ///
-//            if let employees = dept.value(forKey: "employees") as? Set<NSManagedObject>, !employees.isEmpty {
-//                           for emp in employees {
-//                               let name = emp.value(forKey: "name") as? String ?? "(Unnamed)"
-//                               let role = emp.value(forKey: "role") as? String ?? "(Unknown Role)"
-//                               print("   👤 \(name) – \(role)")
-//                           }
-//                       } else {
-//                           print("[No employees]")
-//                       }
+            /// Get employees for this department using the relationship
+//               if let employees = dept.value(forKey: "employees") as? Set<NSManagedObject> {
+//                   for employee in employees.sorted(by: { emp1, emp2 in
+//                       let name1 = emp1.value(forKey: "name") as? String ?? ""
+//                       let name2 = emp2.value(forKey: "name") as? String ?? ""
+//                       return name1 < name2
+//                   }) {
+//                       let empName = employee.value(forKey: "name") as? String ?? "Unknown"
+//                       let empRole = employee.value(forKey: "role") as? String ?? "Unknown"
+//                       print("  - \(empName) (\(empRole))")
+//                   }
+//               }
         }
         
     } catch {
         print ("[Error] - Could not fetch departments: \(error)")
     }
-    
-    
-    /**
-    do {
-           let departments = try context.fetch(fetchRequest)
-           for dept in departments {
-               let deptName = dept.value(forKey: "name") as? String ?? "(Unknown Dept)"
-               print("📁 Department: \(deptName)")
-               
-               if let employees = dept.value(forKey: "employees") as? Set<NSManagedObject>, !employees.isEmpty {
-                   for emp in employees {
-                       let name = emp.value(forKey: "name") as? String ?? "(Unnamed)"
-                       let role = emp.value(forKey: "role") as? String ?? "(Unknown Role)"
-                       print("   👤 \(name) – \(role)")
-                   }
-               } else {
-                   print("   ⚠️ No employees")
-               }
-           }
-       } catch {
-           print("❌ Failed to fetch departments: \(error)")
-       }**/
+
 }
 
+// MARK: [Demo-02] Total sales per employee
+// MARK: [Demo-03] The top salesperson per department
+// MARK: [Demo-04] Employees with no sales
+// MARK: [Demo-05] Departments with the most employees
+// MARK: [Demo-06] Top 3 sales by amount (across all employees)
+
 // MARK: - Attribute/Relationship Helpers
+
 extension NSAttributeDescription {
     static func make(name: String, type: NSAttributeType, optional: Bool = false) -> NSAttributeDescription {
         let attr = NSAttributeDescription()
@@ -313,3 +339,24 @@ extension NSRelationshipDescription {
         return rel
     }
 }
+
+// MARK: Run demos
+
+
+// Create the core data stack
+let coreDataModel = createCoreDataModel()
+let container = makeInMemoryContainer(model: coreDataModel)
+let context = container.viewContext
+
+createCompanyData(context: context)
+
+
+showAllEmployeesByDepartment(context: context)
+
+
+//try? await Task.sleep(nanoseconds: 1_000_000_000)
+
+print ("\n--------------------\n")
+
+print("\n\n-- Exiting Playground -- ")
+PlaygroundPage.current.finishExecution()
