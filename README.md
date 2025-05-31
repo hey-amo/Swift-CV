@@ -1,14 +1,14 @@
 # Swift.CV - iOS development Portfolio
 
-> **Swift & SwiftUI demos for employers, recruiters**
+I am a junior iOS developer looking for work as a Swift iOS developer.
+
+This is a portfolio of Swift demos for those who might be hiring.
 
 ## 🎯 Purpose
 
-A collection of standalone demos in Swift showcasing practical iOS development skills.
+This is a curation of standalone demos in Swift showcasing practical iOS development skills.
 
-Each project demonstrates specific technical competencies through code examples, documentation.
-
-> Target Audience: Hiring managers, technical leads, and recruiters looking for junior iOS development talent.
+Target Audience: Hiring managers, technical leads, and recruiters looking for **junior** iOS development talent.
 
 ---
 
@@ -16,7 +16,7 @@ Each project demonstrates specific technical competencies through code examples,
 
 ### Demos
 
-| Demo | Technical Focus | Business Value |
+| Demo Name | Technical | Description |
 |------|----------------|----------------|
 | **[FilterMapReduceSort](./Projects/FilterMapReduceSort.playground)** | Functional programming with semi-complex data | Efficient fast, data processing for small, user-facing features |
 | **[ProtocolExamples](./Projects/ProtocolExamples.playground)** | Protocol-oriented design | Scalable demos |
@@ -25,12 +25,11 @@ Each project demonstrates specific technical competencies through code examples,
 | **[ValueVSRefDemo](./Projects/ValueVSRefDemo.playground)** | Memory management principles | Performance optimization and bug prevention |
 | **[SQLite demos](./Projects/SQLite/)** | Simple SQLite demos | SQLite demos with various join examples | 
 | **[CoreDataBasics](./Projects/CoreDataDemo.playground/)** | Core data basics | Local data persistence with 9 demos |
-
+| **[SwiftDataDemo](./Projects/SwiftDataDemo/README.md)** | Simple Swift Data Demo | CRUD examples in a swift package |
 
 ---
 
 ### 🚧 In Progress
-
 
 
 ### 📋 **Planned**
@@ -50,6 +49,8 @@ Each project demonstrates specific technical competencies through code examples,
 - Swift Playgrounds have certain limitations:
 - Persistent storage may be restricted, or are not functional.
 - Complex UI interactions with Core Data have playground-specific constraints.
+- SwiftData has minimum OS requirements
+- Swift6 enforces a more  stricter concurrency checking, where possible, this is avoided for demos
 
 ---
 
@@ -81,4 +82,4 @@ or send me a DM message via social media.
 
 ---
 
-*Last Updated: May 30, 2025 • Swift 5+ • iOS 16+ Compatible*
+*Last Updated: May 31, 2025 • Swift 5+ • iOS 16+ Compatible*
