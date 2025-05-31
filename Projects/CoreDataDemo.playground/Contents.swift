@@ -1,5 +1,5 @@
 /*
- # CoreDataCompany
+ # CoreDataDemo
 
  A standalone Swift playground project to demonstrate:
 
