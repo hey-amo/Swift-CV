@@ -1,6 +1,7 @@
 # Swift.CV - iOS development Portfolio
+*Last Updated: September, 23, 2025*
 
-I am a junior iOS developer looking for work as a Swift iOS developer.
+I am a *career returner* junior iOS developer looking for work as a Swift iOS developer.
 
 This is a portfolio of Swift demos for those who might be hiring.
 
@@ -71,15 +72,12 @@ Target Audience: Hiring managers, technical leads, and recruiters looking for **
 
 ## 📞 Contact & Next Steps
 
-**I am actively looking for new iOS development opportunities** - junior to mid-level positions in startups, agencies, or established tech teams. Ideally, in the UK.
+**I am actively looking for new iOS development opportunities** - junior positions in startups, agencies, or established tech teams. 
+
+Can work remote.
 
 **Technical Interview Ready:** Can walk through any code example and explain implementation decisions and potential improvements.
 
-View my complete professional profile: (TBC)
-or send me a DM message via social media.
+Hiring? Send me a message at: [LinkedIn](https://linkedin.com/in/hey-amo/)
 
-<!--[LinkedIn] | [Portfolio Website]-->
 
----
-
-*Last Updated: May 31, 2025 • Swift 5+ • iOS 16+ Compatible*
