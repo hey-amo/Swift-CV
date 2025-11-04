@@ -1,7 +1,6 @@
 # Swift.CV - iOS development Portfolio
-*Last Updated: September, 23, 2025*
+*Last Updated: 04 Nov 2025*
 
-I am a *career returner* junior iOS developer looking for work as a Swift iOS developer.
 
 This is a portfolio of Swift demos for those who might be hiring.
 
@@ -17,28 +16,18 @@ Target Audience: Hiring managers, technical leads, and recruiters looking for **
 
 ### Demos
 
+
 | Demo Name | Technical | Description |
 |------|----------------|----------------|
-| **[FilterMapReduceSort](./Projects/FilterMapReduceSort.playground)** | Functional programming with semi-complex data | Efficient fast, data processing for small, user-facing features |
-| **[ProtocolExamples](./Projects/ProtocolExamples.playground)** | Protocol-oriented design | Scalable demos |
-| **[SimpleConcurrency](./Projects/SimpleConcurrency.playground)** | Queue management & threading and processing |
-| **[ErrorHandlingDemo](./Projects/ErrorHandlingDemo.playground)** | Robust error management | Error handling for production apps |
-| **[ValueVSRefDemo](./Projects/ValueVSRefDemo.playground)** | Memory management principles | Performance optimization and bug prevention |
+| **[FilterMapReduceSort](./Projects/Playgrounds/FilterMapReduceSort.playground)** | Functional programming with semi-complex data | Efficient fast, data processing for small, user-facing features |
+| **[ProtocolExamples](./Projects/Playgrounds/ProtocolExamples.playground)** | Protocol-oriented design | Scalable demos |
+| **[SimpleConcurrency](./Projects/Playgrounds/SimpleConcurrency.playground)** | Queue management & threading and processing |
+| **[ErrorHandlingDemo](./Projects/Playgrounds/ErrorHandlingDemo.playground)** | Robust error management | Error handling for production apps |
+| **[ValueVSRefDemo](./Projects/Playgrounds/ValueVSRefDemo.playground)** | A look at the differences between Value and Reference types |
 | **[SQLite demos](./Projects/SQLite/)** | Simple SQLite demos | SQLite demos with various join examples | 
-| **[CoreDataBasics](./Projects/CoreDataDemo.playground/)** | Core data basics | Local data persistence with 9 demos |
+| **[CoreDataBasics](./Projects/Playgrounds/CoreDataDemo.playground/)** | Core data basics | Local data persistence with 9 demos |
 | **[SwiftDataDemo](./Projects/SwiftDataDemo/README.md)** | Simple Swift Data Demo | CRUD examples in a swift package |
-
----
-
-### 🚧 In Progress
-
-
-### 📋 **Planned**
-
-- **CombineInPractice** - Reactive programming with publishers and subscribers  
-- **TCABasics** - The Composable Architecture pattern implementation
-- **DependencyInjection** - Clean architecture with inversion of control
-- **AsyncAwaitDemo** - Modern concurrency patterns with structured async/await
+<!---->
 
 ---
 
@@ -70,7 +59,9 @@ Target Audience: Hiring managers, technical leads, and recruiters looking for **
 
 ---
 
-## 📞 Contact & Next Steps
+## 📞 Hire me
+
+> Are you a UK base iOS app development agency, or a start-up looking to hire?
 
 **I am actively looking for new iOS development opportunities** - junior positions in startups, agencies, or established tech teams. 
 
@@ -78,6 +69,6 @@ Can work remote.
 
 **Technical Interview Ready:** Can walk through any code example and explain implementation decisions and potential improvements.
 
-Hiring? Send me a message at: [LinkedIn](https://linkedin.com/in/hey-amo/)
+
 
 
