@@ -8,6 +8,7 @@ These are the entities for the core data demo.
  - `Department`- Attributes: {name: (String)}. Relationship: company (many-to-1), employees (1-to-many)
  - `Employee`- Attributes: {name: (String), role: (String)}. Relationship: department (many-to-1), sales (1-to-many)
  - `Sale` - Attributes: {amount: (Double), date: Date}. Relationship: employee (many-to-1)
+- `Product` - Attributes: {Name (String), Info (String), Price (Double), SKU (String)}
 
 ### Relationships:
 
@@ -61,7 +62,7 @@ These are the entities for the core data demo.
 
 ### Products
 
-| Product ID | Name               | Description              | Price  | SKU       |
+| Product ID | Name               | Info	              | Price  | SKU       |
 | ---------- | ------------------ | ------------------------ | ------ | --------- |
 | P001       | Enterprise Suite   | Business software bundle | 5,000  | ENT-S-001 |
 | P002       | Security Package   | Cybersecurity solution   | 3,500  | SEC-P-002 |
