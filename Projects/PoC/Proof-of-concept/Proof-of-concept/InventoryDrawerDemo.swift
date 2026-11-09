@@ -16,7 +16,8 @@ final class InventoryStage {
     struct Item: Identifiable, Equatable {
         let id = UUID()
         let emoji: String
-        var home: CGPoint          // "origin" in the world – where it snaps back to
+        var cell: Int              // index in the invisible world grid
+        var home: CGPoint          // centre of that cell – where it snaps back to
     }
 
     enum Origin { case world, inventory }
@@ -41,6 +42,8 @@ final class InventoryStage {
         static let topGap: CGFloat = 8
         static let carryFont: CGFloat = 64
         static let summonInset: CGFloat = 190   // finger this close to the bottom → drawer pops up
+        static let columns = 3                  // invisible world grid
+        static let rows = 3
     }
 
     let capacity = 5
@@ -88,9 +91,27 @@ final class InventoryStage {
                        y: top(.partial) + Layout.slotsTop + s / 2)
     }
 
-    private func clampToWorld(_ p: CGPoint) -> CGPoint {
-        CGPoint(x: min(max(p.x, 44), size.width - 44),
-                y: min(max(p.y, safeTop + 60), top(.partial) - 48))
+    // MARK: Invisible world grid
+
+    func cellCenter(_ cell: Int) -> CGPoint {
+        let column: CGFloat = CGFloat(cell % Layout.columns)
+        let row: CGFloat = CGFloat(cell / Layout.columns)
+        let x: CGFloat = size.width * (0.2 + 0.3 * column)
+        let y: CGFloat = safeTop + 120 + 120 * row
+        return CGPoint(x: x, y: y)
+    }
+
+    /// Closest grid cell that no world item is using.
+    private func nearestFreeCell(to point: CGPoint) -> Int {
+        let taken = Set(world.map { $0.cell })
+        var best = 0
+        var bestDistance = CGFloat.greatestFiniteMagnitude
+        for cell in 0..<(Layout.columns * Layout.rows) where !taken.contains(cell) {
+            let c = cellCenter(cell)
+            let d: CGFloat = hypot(c.x - point.x, c.y - point.y)
+            if d < bestDistance { bestDistance = d; best = cell }
+        }
+        return best
     }
 
     func configure(size: CGSize, safeArea: EdgeInsets) {
@@ -103,9 +124,7 @@ final class InventoryStage {
     private func seed() {
         let faces = ["🐱", "😺", "😸", "😻", "😼", "🙀", "🐈"]   // 7 cats so you can hit the 5-item cap
         world = faces.enumerated().map { i, face in
-            Item(emoji: face,
-                 home: CGPoint(x: size.width * (0.2 + 0.3 * CGFloat(i % 3)),
-                               y: safeTop + 120 + 120 * CGFloat(i / 3)))
+            Item(emoji: face, cell: i, home: cellCenter(i))
         }
     }
 
@@ -202,11 +221,17 @@ final class InventoryStage {
         guard let c = carry, c.id == id, !c.isSettling else { return }
         let over = isOverDrawer
 
+        // Released outside the drawer: a drawer this drag opened closes right away.
+        if !over, drawer == .partial, openedByDrag || c.origin == .inventory {
+            cancelAutoDismiss()
+            setDrawer(.hidden)
+        }
+
         switch c.origin {
         case .world:
             guard let item = world.first(where: { $0.id == id }) else { carry = nil; return }
             if over, inventory.count < capacity {
-                // (5) fly into the next free slot, then the drawer confirms receipt
+                // fly into the next free slot, then the drawer confirms receipt
                 settle(to: slotCenter(inventory.count), scale: slotScale) {
                     self.world.removeAll { $0.id == id }
                     self.inventory.append(item)
@@ -217,7 +242,7 @@ final class InventoryStage {
                 }
             } else {
                 if over { status = .full; rejectCount += 1 }
-                // (1) snap back to origin
+                // snap back to its grid cell
                 settle(to: item.home, scale: 1) {
                     self.carry = nil
                     self.scheduleAutoDismiss()
@@ -232,10 +257,12 @@ final class InventoryStage {
                     self.scheduleAutoDismiss()
                 }
             } else {
+                // drops into the nearest free grid cell
                 var item = inventory[index]
-                item.home = clampToWorld(c.point)            // it now lives where you dropped it
+                let cell = nearestFreeCell(to: c.point)
+                item.cell = cell
+                item.home = cellCenter(cell)
                 cancelAutoDismiss()
-                setDrawer(.hidden)
                 settle(to: item.home, scale: 1) {
                     self.inventory.removeAll { $0.id == id }
                     self.world.append(item)
@@ -245,12 +272,19 @@ final class InventoryStage {
         }
     }
 
-    private func settle(to point: CGPoint, scale: CGFloat, finish: @escaping () -> Void) {
+    /// Animates the carried item to `point`, then runs `finish`.
+    /// `finish` runs on a fixed timer rather than an animation-completion callback: those callbacks
+    /// can be skipped if an animation is interrupted, which would leave `carry` set forever and
+    /// make every later drag get ignored.
+    private func settle(to point: CGPoint, scale: CGFloat, finish: @escaping @MainActor () -> Void) {
         withAnimation(.spring(duration: 0.45, bounce: 0.3)) {
             carry?.isSettling = true
             carry?.point = point
             carry?.baseScale = scale
-        } completion: {
+        }
+        Task { [weak self] in
+            try? await Task.sleep(for: .milliseconds(480))
+            guard self != nil else { return }
             finish()
         }
     }
@@ -267,7 +301,10 @@ final class InventoryStage {
 
     func release(_ id: Item.ID) {
         guard let i = inventory.firstIndex(where: { $0.id == id }) else { return }
-        let item = inventory.remove(at: i)
+        var item = inventory.remove(at: i)
+        let cell = nearestFreeCell(to: CGPoint(x: size.width / 2, y: safeTop + 120))
+        item.cell = cell
+        item.home = cellCenter(cell)
         withAnimation(.snappy) { world.append(item) }
     }
 
